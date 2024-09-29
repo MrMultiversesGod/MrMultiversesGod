@@ -3,26 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Big W</title>
+    <title>∞</title>
     <style>
         body {
             margin: 0;
-            padding: 0;
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: #000000; /* Siyah arka plan */
+            background-color: #000; /* Siyah arka plan */
         }
 
         .big-w {
-            font-size: 15rem; /* W harfinin boyutu */
-            color: white; /* Beyaz renk */
+            font-size: 50vw; /* Büyük boyutta W */
+            font-weight: bold;
             font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, hsl(0, 100%, 50%), hsl(60, 100%, 50%), hsl(120, 100%, 50%), hsl(180, 100%, 50%), hsl(240, 100%, 50%), hsl(300, 100%, 50%), hsl(360, 100%, 50%)); /* Renk geçişleri */
+            background-size: 400% 400%; /* Daha geniş bir arka plan */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+            animation: gradientPingPong 10s ease-in-out infinite alternate; /* Gidip gelen animasyon */
+        }
+
+        @keyframes gradientPingPong {
+            0% {
+                background-position: 100% 50%; /* Sağdan sola */
+            }
+            100% {
+                background-position: 0% 50%; /* Sola doğru hareket */
+            }
         }
     </style>
 </head>
 <body>
-    <div class="∞">W</div>
+    <div class="big-w">W</div>
 </body>
 </html>
