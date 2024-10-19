@@ -1,0 +1,1629 @@
+<!DOCTYPE html>
+<html xmlns="https://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta charset="utf-8" />
+<meta name="Author" content="Apple Inc." />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="icon" href="/favicon.ico" />
+<link rel="mask-icon" href="/apple-logo.svg" color="#333333">
+
+<link rel="stylesheet" href="/assets/styles/global.dist.css?11202429227" type="text/css" />
+<link rel="stylesheet" href="/assets/styles/dark-mode.css?17182448067" type="text/css" media="(prefers-color-scheme: dark)" data-color-scheme="dark" />
+<link rel="stylesheet" href="/assets/styles/localization.css?39172414191" type="text/css" />
+
+<script src="/assets/scripts/lib/jquery/jquery-3.6.0.min.js?17182448067"></script>
+<script src="/assets/scripts/settings.js?17182448067"></script>
+<script src="/assets/scripts/language-locales.js?17182448067"></script>
+<script src="/assets/scripts/DeveloperBreadcrumbs.js?05182434080"></script>
+
+<script async src="/assets/scripts/lib/jquery/jquery.retinate.js?17182448067"></script>
+<script async src="/assets/scripts/global.js?17182448067"></script>
+<script async src="/assets/scripts/global-logout.js?17182448067"></script>
+
+
+
+	<link rel="stylesheet" href="https://www.apple.com/wss/fonts?family=SF+Pro&v=2" type="text/css" />
+<link rel="stylesheet" href="https://www.apple.com/wss/fonts?family=SF+Pro+Icons&v=1" type="text/css" />
+<link rel="stylesheet" href="https://www.apple.com/wss/fonts?family=SF+Mono&v=2" type="text/css" />
+<link rel="stylesheet" href="https://www.apple.com/wss/fonts?family=Apple+Icons&amp;v=1" type="text/css" />
+
+	<title>Apple Maps on the Web - Maps- Apple Developer</title>
+	<meta name="omni_page" content="Apple Maps on the Web - Maps - (English)" />
+	<meta name="Description" content="MapKit JS brings Apple Maps to the web. This new JavaScript library lets you add interactive maps to webpages — complete with annotations, overlays, and interfaces to Apple Maps services such as search and directions — to enable rich interactions.">
+	<meta property="og:title" content="Apple Maps on the Web - Maps - Apple Developer">
+	<meta property="og:description" content="MapKit JS brings Apple Maps to the web. This new JavaScript library lets you add interactive maps to webpages — complete with annotations, overlays, and interfaces to Apple Maps services such as search and directions — to enable rich interactions.">
+	<meta property="og:url" content="https://developer.apple.com/maps/web/">
+	<link rel="alternate" href="/maps/web/" hreflang="en" />
+
+	<link rel="stylesheet" type="text/css" href="/maps/styles/maps.css" />
+	<link rel="stylesheet" type="text/css" href="/maps/styles/web.css" />
+</head>
+
+<body id="web" class="dmf">
+
+	<script>
+	const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+	if (window.Settings.preferredColorScheme) {
+		const colorTheme = (window.Settings.preferredColorScheme === 'auto') && !prefersDark ? 'light' : (window.Settings.preferredColorScheme === 'light') ? 'light' : 'dark'
+		document.body.setAttribute('data-color-scheme', colorTheme);
+	} else {
+		document.body.setAttribute('data-color-scheme', prefersDark ? 'dark' : 'light');
+	}
+</script>
+<style>
+	/* footer */
+	html body[data-color-scheme='dark'] #main section.section.section-resources.bg-alt {background-color:var(--fill-tertiary);color:var(--glyph-gray);}
+	html body[data-color-scheme='dark'] .developer-router-links {background-color:var(--fill-tertiary);color:var(--glyph-gray);}
+	html body[data-color-scheme='dark'] .footer {background-color:var(--fill-tertiary);color:var(--glyph-gray-tertiary);}
+	/* body backgrounds */
+	body[data-color-scheme='dark'].dmf {background-color: #000;}
+	html body[data-color-scheme='dark'].dmf .bg-alt {background-color:var(--fill-tertiary);}
+	html body[data-color-scheme='dark'].dmf .bg-blue {background-color:var(--fill-blue-secondary);}
+	html body[data-color-scheme='dark'].dmf .bg-green-blue {background:linear-gradient(135deg, #65976d 0%, #588ea4 100%)}
+	html body[data-color-scheme='dark'].dmf .bg-yellow {background: linear-gradient(to bottom, var(--fill-tertiary) 0%, var(--fill-tertiary-alt) 100%);}
+	html body[data-color-scheme='dark'].dmf .bg-light {background-color:var(--fill-secondary-alt);}
+	html body[data-color-scheme='dark'].dmf .bg-gradient, html body[data-color-scheme='dark'].dmf .bg-grad {background:linear-gradient(to bottom, var(--dark) 0%, var(--fill-gray-secondary-alt) 100%);}
+	html body[data-color-scheme='dark'].dmf .bg-grad-down {background:linear-gradient(to bottom, var(--dark) 0%, var(--fill-gray-secondary-alt) 100%);}
+	html body[data-color-scheme='dark'].dmf .bg-grad-up {background:linear-gradient(to bottom, var(--fill-gray-secondary-alt) 0%, var(--dark) 100%);}
+	html body[data-color-scheme='dark'].dmf .bg-blue-gradient, html body[data-color-scheme='dark'].dmf .bg-gradient-blue {background:linear-gradient(to bottom, var(--fill-blue-gradient-light) 0%, var(--fill-blue-gradient-dark) 100%);}
+	html body[data-color-scheme='dark'].dmf .bg-blue-gradient-alt {background: linear-gradient(90deg, #061830 0%, #102d48 100%);}
+	/* globalNav */
+	html body[data-color-scheme='dark'] #ac-globalnav {background: var(--fill-tertiary);}
+	/* localNav */
+	html body[data-color-scheme='dark'] .localnav.localnav-scrim .localnav-background,
+	html body[data-color-scheme='dark'] .localnav-scrim.localnav.localnav-background {
+		background-color: rgba(29, 29, 31, 0.9);
+	}
+	@supports ((-webkit-backdrop-filter: initial) or (backdrop-filter: initial)) {
+		html body[data-color-scheme='dark'] .localnav.localnav-scrim .localnav-background,
+		html body[data-color-scheme='dark'] .localnav-scrim.localnav.localnav-background {
+			background-color: rgba(29, 29, 31, 0.72);
+		}
+	}
+</style>
+<link rel="stylesheet" href="/assets/styles/globalnav.css?55202406207" type="text/css" />
+
+<link rel="stylesheet" href="/assets/styles/suggest-lang.css?17182448067" type="text/css" />
+<div id="suggest-lang" class="ribbon hide" lang="en">
+	<div class="ribbon-content-wrapper">
+		<div class="ribbon-content row">
+			<div class="column large-12 large-centered">
+				<p><a href="#" id="suggest-link" class="ribbon-link more">View in English</a></p>
+				<button id="suggest-closer" class="icon icon-after icon-reset" aria-label="Dismiss language suggestion" tabindex="0"></button>
+			</div>
+		</div>
+	</div>
+</div>
+<script src="/assets/scripts/suggest-lang.js?17182448067"></script>
+<aside id="ac-gn-segmentbar" class="ac-gn-segmentbar" lang="en-US" dir="ltr">
+</aside>
+<input type="checkbox" id="ac-gn-menustate" class="ac-gn-menustate" />
+<nav id="ac-globalnav" class="no-js" role="navigation" aria-label="Global" data-hires="false" data-analytics-region="global nav" lang="en-US" dir="ltr"
+    data-www-domain="www.apple.com"
+    data-store-locale="us"
+    data-store-root-path="/us"
+    data-store-api="/[storefront]/shop/bag/status"
+    data-search-locale="en_US"
+    data-search-suggestions-api="/search-services/suggestions/"
+    data-search-defaultlinks-api="/search-services/suggestions/defaultlinks/"
+    data-search-suggestions-enabled="false">
+	<div class="ac-gn-content">
+		<ul class="ac-gn-header">
+			<li class="ac-gn-item ac-gn-menuicon">
+				<label class="ac-gn-menuicon-label" for="ac-gn-menustate" aria-hidden="true">
+					<span class="ac-gn-menuicon-bread ac-gn-menuicon-bread-top">
+						<span class="ac-gn-menuicon-bread-crust ac-gn-menuicon-bread-crust-top"></span>
+					</span>
+					<span class="ac-gn-menuicon-bread ac-gn-menuicon-bread-bottom">
+						<span class="ac-gn-menuicon-bread-crust ac-gn-menuicon-bread-crust-bottom"></span>
+					</span>
+				</label>
+				<a href="#ac-gn-menustate" role="button" class="ac-gn-menuanchor ac-gn-menuanchor-open" id="ac-gn-menuanchor-open">
+					<span class="ac-gn-menuanchor-label">Global Nav Open Menu</span>
+				</a>
+				<a href="#" role="button" class="ac-gn-menuanchor ac-gn-menuanchor-close" id="ac-gn-menuanchor-close">
+					<span class="ac-gn-menuanchor-label">Global Nav Close Menu</span>
+				</a>
+			</li>
+			<li class="ac-gn-item ac-gn-apple">
+				<a class="ac-gn-link ac-gn-link-apple-developer" href="/" data-analytics-title="appledeveloper home" id="ac-gn-firstfocus-small">
+					<span class="ac-gn-link-text">Apple Developer</span>
+				</a>
+			</li>
+		</ul>
+		<div class="ac-gn-search-placeholder-container" role="search">
+			<div class="ac-gn-search ac-gn-search-small">
+				<a id="ac-gn-link-search-small" class="ac-gn-link" href="/search/" data-analytics-title="search" data-analytics-click="search" data-analytics-intrapage-link aria-label="Search">
+					<div class="ac-gn-search-placeholder-bar">
+						<div class="ac-gn-search-placeholder-input">
+							<div class="ac-gn-search-placeholder-input-text" aria-hidden="true">
+								<div class="ac-gn-link-search ac-gn-search-placeholder-input-icon"></div>
+								<span class="ac-gn-search-placeholder">Search</span>
+							</div>
+						</div>
+						<div class="ac-gn-searchview-close ac-gn-searchview-close-small ac-gn-search-placeholder-searchview-close">
+							<span class="ac-gn-searchview-close-cancel" aria-hidden="true">Cancel</span>
+						</div>
+					</div>
+				</a>
+			</div>
+		</div>
+		<ul class="ac-gn-list">
+			<li class="ac-gn-item ac-gn-apple">
+				<a class="ac-gn-link ac-gn-link-apple-developer" href="/" data-analytics-title="appledeveloper home" id="ac-gn-firstfocus">
+					<span class="ac-gn-link-text">Apple Developer</span>
+					</a>
+			</li>
+			<li class="ac-gn-item ac-gn-item-menu ac-gn-news">
+				<a class="ac-gn-link ac-gn-link-news" href="/news/" data-analytics-title="news">
+					<span class="ac-gn-link-text">News</span>
+					</a>
+			</li>
+			<li class="ac-gn-item ac-gn-item-menu ac-gn-discover">
+				<a class="ac-gn-link ac-gn-link-discover" href="/discover/" data-analytics-title="discover">
+					<span class="ac-gn-link-text">Discover</span>
+					</a>
+			</li>
+			<li class="ac-gn-item ac-gn-item-menu ac-gn-design">
+				<a class="ac-gn-link ac-gn-link-design" href="/design/" data-analytics-title="design">
+					<span class="ac-gn-link-text">Design</span>
+					</a>
+			</li>
+			<li class="ac-gn-item ac-gn-item-menu ac-gn-develop">
+				<a class="ac-gn-link ac-gn-link-develop" href="/develop/" data-analytics-title="develop">
+					<span class="ac-gn-link-text">Develop</span>
+					</a>
+			</li>
+			<li class="ac-gn-item ac-gn-item-menu ac-gn-distribute">
+				<a class="ac-gn-link ac-gn-link-distribute" href="/distribute/" data-analytics-title="distribute">
+					<span class="ac-gn-link-text">Distribute</span>
+					</a>
+			</li>
+			<li class="ac-gn-item ac-gn-item-menu ac-gn-dsupport">
+				<a class="ac-gn-link ac-gn-link-dsupport" href="/support/" data-analytics-title="dsupport">
+					<span class="ac-gn-link-text">Support</span>
+					</a>
+			</li>
+			<li class="ac-gn-item ac-gn-item-menu ac-gn-account">
+				<a class="ac-gn-link ac-gn-link-account" href="/account/" data-analytics-title="account">
+					<span class="ac-gn-link-text">Account</span>
+					</a>
+			</li>
+			<li class="ac-gn-item ac-gn-item-menu ac-gn-search" role="search">
+				<a id="ac-gn-link-search" class="ac-gn-link ac-gn-link-search" href="/search/" data-analytics-title="search" data-analytics-click="search" data-analytics-intrapage-link aria-label="Search"></a>
+			</li>
+		</ul>
+		<aside id="ac-gn-searchview" class="ac-gn-searchview" role="search" data-analytics-region="search">
+			<div class="ac-gn-searchview-content">
+				<div class="ac-gn-searchview-bar">
+					<div class="ac-gn-searchview-bar-wrapper">
+						<form id="ac-gn-searchform" class="ac-gn-searchform" action="/search/" method="get">
+							<div class="ac-gn-searchform-wrapper">
+								<input id="ac-gn-searchform-input" class="ac-gn-searchform-input" type="text" name="q" aria-label="Search" placeholder="Search" autocorrect="off" autocapitalize="off" autocomplete="off" spellcheck="false" role="combobox" aria-autocomplete="list" aria-expanded="true" aria-owns="quicklinks suggestions" />
+								<button id="ac-gn-searchform-submit" class="ac-gn-searchform-submit" type="submit" disabled aria-label="Submit Search"></button>
+								<button id="ac-gn-searchform-reset" class="ac-gn-searchform-reset" type="reset" disabled aria-label="Clear Search">
+										<span class="ac-gn-searchform-reset-background"></span>
+									</button>
+							</div>
+						</form>
+						<button id="ac-gn-searchview-close-small" class="ac-gn-searchview-close ac-gn-searchview-close-small" aria-label="Cancel Search">
+								<span class="ac-gn-searchview-close-cancel" aria-hidden="true">
+									Cancel
+								</span>
+							</button>
+					</div>
+				</div>
+				<aside id="ac-gn-searchresults" class="ac-gn-searchresults hidden" data-string-quicklinks="Quick Links" data-string-suggestions="Suggested Searches" data-string-noresults="">
+                    <section class="ac-gn-searchresults-section ac-gn-searchresults-section-defaultlinks">
+                        <div class="ac-gn-searchresults-section-wrapper">
+							<div class="search-group-checkbox hidden"><input id="group-input" type="checkbox" name="group-filter" checked>Only search within “<span id="group-search-label"></span>”</div>
+                            <h3 class="ac-gn-searchresults-header ac-gn-searchresults-animated">Quick Links</h3>
+                            <ul class="ac-gn-searchresults-list" id="defaultlinks" role="listbox">
+                            </ul>
+                            <span role="status" class="ac-gn-searchresults-count" aria-live="polite">5 Quick Links</span>
+                        </div>
+                    </section>
+                </aside>
+			</div>
+			<button id="ac-gn-searchview-close" class="ac-gn-searchview-close" aria-label="Cancel Search">
+					<span class="ac-gn-searchview-close-wrapper">
+						<span class="ac-gn-searchview-close-left"></span>
+						<span class="ac-gn-searchview-close-right"></span>
+					</span>
+				</button>
+		</aside>
+			</div>
+</nav>
+<div class="ac-gn-blur"></div>
+<div id="ac-gn-curtain" class="ac-gn-curtain"></div>
+<div id="ac-gn-placeholder" class="ac-nav-placeholder"></div>
+<script src="/assets/scripts/ac-globalnav.built.js?17182448067"></script>
+<link rel="stylesheet" href="/assets/styles/search.css?17182448067">
+<script src="/assets/scripts/search.js?17182448067"></script>
+
+	<!-- metrics -->
+<script>
+    /* RSID: */
+    var s_account="awdappledeveloper"
+</script>	
+<script src="/assets/metrics/scripts/analytics.js?072620243"></script>
+<script>
+    s.pageName= AC && AC.Tracking && AC.Tracking.pageName();
+    s.channel="www.en.developer"
+    s.channel="www.en.developer";
+
+    
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)
+</script>
+<!-- /metrics -->
+
+	<link rel="stylesheet" property="stylesheet" href="/assets/styles/localnav.css" type="text/css" />
+<input type="checkbox" id="localnav-menustate" class="localnav-menustate"/>
+<nav id="localnav" class="localnav localnav-scrim" data-sticky role="navigation">
+	<div class="localnav-wrapper">
+		<div class="localnav-background"></div>
+		<div class="localnav-content">
+			<h2 class="localnav-title">
+				<a href="/maps/">Apple Maps</a>
+			</h2>
+
+			<div class="localnav-menu">
+				<a href="#localnav-menustate" class="localnav-menucta-anchor localnav-menucta-anchor-open" id="localnav-menustate-open">
+					<span class="localnav-menucta-anchor-label">Open Menu</span>
+				</a>
+				<a href="#" class="localnav-menucta-anchor localnav-menucta-anchor-close" id="localnav-menustate-close">
+					<span class="localnav-menucta-anchor-label">Close Menu</span>
+				</a>
+				<div class="localnav-menu-tray">
+					<ul class="localnav-menu-items">
+						<li class="localnav-menu-item">
+							<a href="/maps/" class="localnav-menu-link">Overview</a>
+						</li>
+						<li class="localnav-menu-item">
+							<a href="/maps/resources/" class="localnav-menu-link">Resources</a>
+						</li>
+					</ul>
+				</div>
+				<div class="localnav-actions localnav-actions-center">
+					<div class="localnav-action localnav-action-menucta" aria-hidden="true">
+						<label for="localnav-menustate" class="localnav-menucta">
+							<span class="localnav-menucta-chevron"></span>
+						</label>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</nav>
+<label id="localnav-curtain" for="localnav-menustate"></label>
+<script src="/assets/scripts/ac-localnav.built.js"></script>
+<script type="text/javascript" src="/assets/scripts/localnav.js"></script>
+
+
+	<main id="main" class="main" role="main">
+
+		<section class="section section-header">
+			<div class="section-content">
+				<div class="row">
+					<div class="column large-centered large-9 small-12 text-center">
+						<h1 class="typography-hero-headline"><span class="nowrap">MapKit JS</span></h1>
+						<p class="typography-intro"><span class="nowrap">MapKit JS</span> lets you embed interactive maps directly into your websites across platforms and operating systems, including iOS and Android. Like <a href="/documentation/mapkit/">MapKit</a> for apps, you can also add annotations and overlays to the map to call out points of interest or user destinations.</p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="column large-centered large-12">
+						<figure class="device-hero device-macbook-pro-16-space-gray center" role="img" alt="MacBook Pro displaying Apple Store Locations in Maps on the web" aria-label="MacBook Pro displaying Apple Store Locations in Maps on the web">
+							<picture class="device-screen">
+								<source media="(max-width:735px)" srcset="/maps/web/images/screen-hero-small_2x.png" />
+								<source media="(max-width:1068px)" srcset="/maps/web/images/screen-hero-medium_2x.png" />
+								<img src="/maps/web/images/screen-hero-large_2x.png" width="100%" />
+							</picture>
+						</figure>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="section section-sample-code">
+			<div class="section-content callout">
+				<div class="row">
+					<div class="column large-9 large-centered small-12">
+						<h4>GeoJSON Import</h4>
+						<p><span class="icon icon-after icon-chevronright block-link sample-5" data-modal-open="modal-sample-map-5">View description and code</span></p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="column large-9 large-centered small-12 sample-map-5-container">
+						<div id="sample-map-5" class="sample-map-5 margin-bottom-small"></div>
+						<div id="infoPopup">
+							<div class="info">
+								<span>State:</span>
+								<span class="info-country"></span>
+							</div>
+							<div class="info">
+								<span>Population:</span>
+								<span class="info-population"></span>
+							</div>
+						</div>
+						<div class="map-legend"></div>
+					</div>
+				</div>
+			</div>
+			<div class="section-content callout">
+				<div class="row">
+					<div class="column large-9 large-centered small-12 no-padding-bottom">
+						<h4>Region and Zoom Limits</h4>
+						<p><span class="icon icon-after icon-chevronright block-link sample-6" data-modal-open="modal-sample-map-6">View description and code</span></p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="column large-9 large-centered small-12">
+							<div id="city-regions">
+								<div id="sanfrancisco">
+									<p>San Francisco</p>
+								</div>
+								<div id="toronto">
+									<p>Toronto</p>
+								</div>
+							</div>
+						<div id="sample-map-6" class="sample-map-6 margin-bottom-small"></div>
+					</div>
+				</div>
+			</div>
+			<div class="section-content callout">
+				<div class="row">
+					<div class="column large-9 large-centered small-12 no-padding-bottom">						
+						<h4>Embed</h4>
+						<p><span class="icon icon-after icon-chevronright block-link sample-1" data-modal-open="modal-sample-map-1">View description and code</span></p>
+					</div>
+				</div>
+				<div class="row ">
+					<div class="column large-9 large-centered small-12">
+						<div id="sample-map-1" class="sample-map-1"></div>
+					</div>
+				</div>
+			</div>
+			<div class="section-content callout">
+				<div class="row">
+					<div class="column large-9 large-centered small-12 no-padding-bottom">
+						<h4>Add Annotations</h4>
+						<p><span class="icon icon-after icon-chevronright block-link sample-2" data-modal-open="modal-sample-map-2">View description and code</span></p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="column large-9 large-centered small-12">
+						<div id="sample-map-2" class="sample-map-2"></div>
+					</div>
+				</div>
+			</div>
+			<div class="section-content callout">
+				<div class="row">
+					<div class="column large-9 large-centered small-12 no-padding-bottom">
+						<h4>Custom Callout</h4>
+						<p><span class="icon icon-after icon-chevronright block-link sample-3" data-modal-open="modal-sample-map-3">View description and code</span></p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="column large-9 large-centered small-12">
+						<div id="sample-map-3" class="sample-map-3"></div>
+					</div>
+				</div>
+			</div>
+			<div class="section-content callout">
+				<div class="row">
+					<div class="column large-9 large-centered small-12 no-padding-bottom">
+						<h4>Draggable Annotations</h4>
+						<p><span class="icon icon-after icon-chevronright block-link sample-4" data-modal-open="modal-sample-map-4">View description and code</span></p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="column large-9 large-centered small-12">
+						<div id="container"></div>
+						<div id="sample-map-4" class="sample-map-4"></div>
+						<p class="margin-top-small smaller">Long press the annotation, then drag it to anywhere on the map.</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="section section-dashboard bg-light">
+			<div class="section-content">
+				<div class="row">
+					<div class="column large-6 small-12">
+						<h3 class="typography">MapKit JS Dashboard</h3>
+						<p>Track your website’s use of Apple Maps services with the MapKit JS Dashboard. Monitor map initializations and service requests in real time, or view up to a year of activity by day, week, month, or year.</p><p> MapKit JS provides a free daily limit of 250,000 map views and 25,000 service calls per Apple Developer Program membership. For additional capacity needs,  <a href="/contact/request/mapkitjs/">contact us</a>.</p><p><a href="https://maps.developer.apple.com/" class="more">Go to the MapKit JS Dashboard</a></p>
+					</div>
+					<div class="column large-offset-1 large-5 medium-offset-0 medium-6 small-12">
+						<figure class="device-macbook-pro-space-grey device-small-for-large center">
+							<figure class="device-screen screen-dashboard"></figure>
+						</figure>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		 <section class="section section-snapshots">
+			<div class="section-content">
+				<div class="row">
+					<div class="column large-6 small-12">
+						<h2 class="typography-section-headline">Snapshots</h2>
+						<p>Snapshots are static map images retrieved from a URL that you can customize to display a region of the world, mark specific points with different styles of annotations and overlays, show the Dark Mode map, and more. Use Snapshots whenever you don't need an interactive map or where you'd use a typical image URL — for example, in websites and in places where JavaScript isn’t available, such as email clients.</p> <p>Snapshots offer a free daily limit of 25,000 unique requests per day per Apple Developer Program membership. For additional capacity needs,  <a href="/contact/request/mapkitjs/">contact us</a>.</p><p><a href="/documentation/snapshots/" class="more">Learn more about Maps Web Snapshots</a></p>
+						<p><a href="https://maps.developer.apple.com/snapshot/" class="more">View Snapshots Studio</a></p>
+					</div>
+					<div class="column large-offset-1 large-5 medium-offset-0 medium-6 small-12">
+						<figure class="tile-snapshots center"></figure>
+					</div>
+				</div>
+			</div>
+		</section>
+
+	</main>
+
+	<link rel="stylesheet" property="stylesheet" href="/assets/styles/router-strip.css" type="text/css" />
+<aside class="section developer-router-links">
+	<div class="section-content">
+		<div class="row">
+			<div class="column large-3 medium-6 small-12">
+				<a href="/videos/maps-location/" class="block text-center">
+					<figure class="router-icon router-icon-videos"></figure>
+					<p>
+						<strong>Session videos</strong>
+					</p>
+					<p class="typography-subbody">See the latest in location and map technologies presented at WWDC and other events.</p>
+					<p class="typography-subbody">
+						<span class="icon icon-after icon-chevronright block-link">Watch video<span class="loc-partial-sub nowrap"></span></span>
+					</p>
+				</a>
+			</div>
+			<div class="column large-3 medium-6 small-12">
+				<a href="/documentation/mapkitjs/" class="block text-center">
+					<figure class="router-icon router-icon-document"></figure>
+					<p>
+						<strong>Documentation</strong>
+					</p>
+					<p class="typography-subbody">Browse MapKit JS documentation for the latest API reference and technical articles.</p>
+					<p class="typography-subbody">
+						<span class="icon icon-after icon-chevronright block-link">Read documentation<span class="loc-en-only"></span></span>
+					</p>
+				</a>
+			</div>
+			<div class="column large-3 medium-6 small-12">
+				<a href="https://maps.developer.apple.com/sample-code/" class="block text-center">
+					<figure class="router-icon router-icon-code"></figure>
+					<p>
+						<strong>Sample code</strong>
+					</p>
+					<p class="typography-subbody">Learn how to implement <span class="nowrap">Apple Maps</span> features into websites with sample code.</p>
+					<p class="typography-subbody">
+						<span class="icon icon-after icon-chevronright block-link">View sample code<span class="loc-en-only"></span></span>
+					</p>
+				</a>
+			</div>
+			<div class="column large-3 medium-6 small-12">
+				<a href="/forums/tags/mapkit-js/" class="block text-center">
+					<figure class="router-icon router-icon-forums"></figure>
+					<p>
+						<strong>Forums</strong>
+					</p>
+					<p class="typography-subbody">Ask questions and discuss development topics with Apple engineers and other developers.</p>
+					<p class="typography-subbody">
+						<span class="icon icon-after icon-chevronright block-link">View forums<span class="loc-en-only"></span></span>
+					</p>
+				</a>
+			</div>
+		</div>
+	</div>
+</aside>
+
+
+	<div class="modal" data-modal="modal-sample-map-1">
+		<div class="modal-inner">
+
+			<h3 class="margin-top-small">Embed</h3>
+<p>Create an embedded map in an element on the page.</p>
+
+<div class="samplecode-code">
+
+    <figure class="highlight">
+        <pre><code class="language-html" data-lang="html"><span></span><span class="cp">&lt;!DOCTYPE html&gt;</span>
+        <span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">"utf-8"</span><span class="p">&gt;</span>
+        
+        <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">"https://cdn.apple-mapkit.com/mk/5.x.x/mapkit.js"</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+        
+        <span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span>
+        <span class="p">#</span><span class="nn">map</span> <span class="p">{</span>
+            <span class="k">width</span><span class="p">:</span> <span class="mi">100</span><span class="kt">%</span><span class="p">;</span>
+            <span class="k">height</span><span class="p">:</span> <span class="mi">600</span><span class="kt">px</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+        
+        <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+        
+        <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">"map"</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+        
+        <span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+        <span class="nx">mapkit</span><span class="p">.</span><span class="nx">init</span><span class="p">({</span>
+            <span class="nx">authorizationCallback</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">done</span><span class="p">)</span> <span class="p">{</span>
+                <span class="kd">var</span> <span class="nx">xhr</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">XMLHttpRequest</span><span class="p">();</span>
+                <span class="nx">xhr</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s2">"GET"</span><span class="p">,</span> <span class="s2">"/services/jwt"</span><span class="p">);</span>
+                <span class="nx">xhr</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">"load"</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                    <span class="nx">done</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">responseText</span><span class="p">);</span>
+                <span class="p">});</span>
+                <span class="nx">xhr</span><span class="p">.</span><span class="nx">send</span><span class="p">();</span>
+            <span class="p">}</span>
+        <span class="p">});</span>
+        
+        <span class="kd">var</span> <span class="nx">Cupertino</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">mapkit</span><span class="p">.</span><span class="nx">CoordinateRegion</span><span class="p">(</span>
+            <span class="k">new</span> <span class="nx">mapkit</span><span class="p">.</span><span class="nx">Coordinate</span><span class="p">(</span><span class="mf">37.3316850890998</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.030067374026</span><span class="p">),</span>
+            <span class="k">new</span> <span class="nx">mapkit</span><span class="p">.</span><span class="nx">CoordinateSpan</span><span class="p">(</span><span class="mf">0.167647972</span><span class="p">,</span> <span class="mf">0.354985255</span><span class="p">)</span>
+        <span class="p">);</span>
+        <span class="kd">var</span> <span class="nx">map</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">mapkit</span><span class="p">.</span><span class="nx">Map</span><span class="p">(</span><span class="s2">"map"</span><span class="p">);</span>
+        <span class="nx">map</span><span class="p">.</span><span class="nx">region</span> <span class="o">=</span> <span class="nx">Cupertino</span><span class="p">;</span>
+        <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span></code></pre>
+    </figure>
+
+    <div>
+    </div>
+</div>
+
+			<span class="modal-close icon icon-close" data-modal-close="modal-sample-map-1"></span>
+		</div>
+	</div>
+
+	<div class="modal" data-modal="modal-sample-map-2">
+		<div class="modal-inner">
+
+			<h3 class="margin-top-small">Add Annotations</h3>
+<p>Create a map with two annotations. Shift-clicking on the map adds a new annotation where the shift-click is detected and removes the annotation on the map that was previously added with shift-click, if one exists.</p>
+
+<div class="samplecode-code">
+
+
+    <figure class="highlight">
+        <pre><code class="language-html" data-lang="html"><span></span><span class="cp">&lt;!DOCTYPE html&gt;</span>
+        <span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+        
+        <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&quot;utf-8&quot;</span><span class="p">&gt;</span>
+        
+        <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://cdn.apple-mapkit.com/mk/5.x.x/mapkit.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+        
+        <span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span>
+        <span class="p">#</span><span class="nn">map</span> <span class="p">{</span>
+            <span class="k">height</span><span class="p">:</span> <span class="mi">600</span><span class="kt">px</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+        
+        <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+        
+        <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;map&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+        
+        <span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+        
+        <span class="kd">var</span> <span class="nx">MarkerAnnotation</span> <span class="o">=</span> <span class="nx">mapkit</span><span class="p">.</span><span class="nx">MarkerAnnotation</span><span class="p">,</span>
+            <span class="nx">clickAnnotation</span><span class="p">;</span>
+        <span class="kd">var</span> <span class="nx">sfo</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">mapkit</span><span class="p">.</span><span class="nx">Coordinate</span><span class="p">(</span><span class="mf">37.616934</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.383790</span><span class="p">),</span>
+            <span class="nx">work</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">mapkit</span><span class="p">.</span><span class="nx">Coordinate</span><span class="p">(</span><span class="mf">37.3349</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.0090201</span><span class="p">);</span>
+        
+        <span class="nx">mapkit</span><span class="p">.</span><span class="nx">init</span><span class="p">({</span>
+            <span class="nx">authorizationCallback</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">done</span><span class="p">)</span> <span class="p">{</span>
+                <span class="kd">var</span> <span class="nx">xhr</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">XMLHttpRequest</span><span class="p">();</span>
+                <span class="nx">xhr</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="s2">&quot;/services/jwt&quot;</span><span class="p">);</span>
+                <span class="nx">xhr</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;load&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                    <span class="nx">done</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">responseText</span><span class="p">);</span>
+                <span class="p">});</span>
+                <span class="nx">xhr</span><span class="p">.</span><span class="nx">send</span><span class="p">();</span>
+            <span class="p">}</span>
+        <span class="p">});</span>
+        <span class="kd">var</span> <span class="nx">map</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">mapkit</span><span class="p">.</span><span class="nx">Map</span><span class="p">(</span><span class="s2">&quot;map&quot;</span><span class="p">);</span>
+        
+        <span class="c1">// Setting properties on creation:</span>
+        <span class="kd">var</span> <span class="nx">sfoAnnotation</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">MarkerAnnotation</span><span class="p">(</span><span class="nx">sfo</span><span class="p">,</span> <span class="p">{</span> <span class="nx">color</span><span class="o">:</span> <span class="s2">&quot;#f4a56d&quot;</span><span class="p">,</span> <span class="nx">title</span><span class="o">:</span> <span class="s2">&quot;SFO&quot;</span><span class="p">,</span> <span class="nx">glyphText</span><span class="o">:</span> <span class="s2">&quot;✈️&quot;</span> <span class="p">});</span>
+        
+        <span class="c1">// Setting properties after creation:</span>
+        <span class="kd">var</span> <span class="nx">workAnnotation</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">MarkerAnnotation</span><span class="p">(</span><span class="nx">work</span><span class="p">);</span>
+        <span class="nx">workAnnotation</span><span class="p">.</span><span class="nx">color</span> <span class="o">=</span> <span class="s2">&quot;#969696&quot;</span><span class="p">;</span> 
+        <span class="nx">workAnnotation</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s2">&quot;Work&quot;</span><span class="p">;</span>
+        <span class="nx">workAnnotation</span><span class="p">.</span><span class="nx">subtitle</span> <span class="o">=</span> <span class="s2">&quot;Apple Park&quot;</span><span class="p">;</span>
+        <span class="nx">workAnnotation</span><span class="p">.</span><span class="nx">selected</span> <span class="o">=</span> <span class="s2">&quot;true&quot;</span><span class="p">;</span>
+        <span class="nx">workAnnotation</span><span class="p">.</span><span class="nx">glyphText</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+        
+        <span class="c1">// Add and show both annotations on the map</span>
+        <span class="nx">map</span><span class="p">.</span><span class="nx">showItems</span><span class="p">([</span><span class="nx">sfoAnnotation</span><span class="p">,</span> <span class="nx">workAnnotation</span><span class="p">]);</span>
+        
+        <span class="c1">// Drop an annotation where a Shift-click is detected:</span>
+        <span class="nx">map</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;click&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">event</span><span class="p">.</span><span class="nx">shiftKey</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">return</span><span class="p">;</span>
+            <span class="p">}</span>
+        
+            <span class="k">if</span><span class="p">(</span><span class="nx">clickAnnotation</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">map</span><span class="p">.</span><span class="nx">removeAnnotation</span><span class="p">(</span><span class="nx">clickAnnotation</span><span class="p">);</span>
+            <span class="p">}</span>
+        
+            <span class="kd">var</span> <span class="nx">coordinate</span> <span class="o">=</span> <span class="nx">map</span><span class="p">.</span><span class="nx">convertPointOnPageToCoordinate</span><span class="p">(</span><span class="k">new</span> <span class="nx">DOMPoint</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">pageX</span><span class="p">,</span> <span class="nx">event</span><span class="p">.</span><span class="nx">pageY</span><span class="p">));</span>
+            <span class="nx">clickAnnotation</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">MarkerAnnotation</span><span class="p">(</span><span class="nx">coordinate</span><span class="p">,</span> <span class="p">{</span>
+                <span class="nx">title</span><span class="o">:</span> <span class="s2">&quot;Click!&quot;</span><span class="p">,</span>
+                <span class="nx">color</span><span class="o">:</span> <span class="s2">&quot;#c969e0&quot;</span>
+            <span class="p">});</span>
+            <span class="nx">map</span><span class="p">.</span><span class="nx">addAnnotation</span><span class="p">(</span><span class="nx">clickAnnotation</span><span class="p">);</span>
+        <span class="p">});</span>
+        
+        <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+          <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span></code></pre>
+    </figure>
+
+</div>
+
+			<span class="modal-close icon icon-close" data-modal-close="modal-sample-map-2"></span>
+		</div>
+	</div>
+
+	<div class="modal" data-modal="modal-sample-map-3">
+		<div class="modal-inner">
+
+			<h3 class="margin-top-small">Custom Callout</h3>
+<p>Create annotations with custom callouts for the landmarks of San Francisco.</p>
+
+<div class="samplecode-code">
+          
+          
+        <figure class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="cp">&lt;!DOCTYPE html&gt;</span>
+        <span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+        
+        <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&quot;utf-8&quot;</span><span class="p">&gt;</span>
+        
+        <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://cdn.apple-mapkit.com/mk/5.x.x/mapkit.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+        
+        <span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span>
+        <span class="p">#</span><span class="nn">map</span> <span class="p">{</span>
+            <span class="k">height</span><span class="p">:</span> <span class="mi">600</span><span class="kt">px</span><span class="p">;</span>
+        <span class="p">}</span>
+        
+        <span class="nt">a</span><span class="p">:</span><span class="nd">link</span><span class="o">,</span> <span class="nt">a</span><span class="p">:</span><span class="nd">visited</span> <span class="p">{</span>
+            <span class="k">color</span><span class="p">:</span> <span class="mh">#2aaef5</span><span class="p">;</span>
+            <span class="k">outline</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span>
+            <span class="k">text-decoration</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span>
+        <span class="p">}</span>
+        
+        <span class="p">.</span><span class="nc">landmark</span> <span class="p">{</span>
+            <span class="k">width</span><span class="p">:</span> <span class="mi">250</span><span class="kt">px</span><span class="p">;</span>
+            <span class="k">padding</span><span class="p">:</span> <span class="mi">7</span><span class="kt">px</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span><span class="p">;</span>
+            <span class="k">background</span><span class="p">:</span> <span class="nb">rgba</span><span class="p">(</span><span class="mi">247</span><span class="p">,</span> <span class="mi">247</span><span class="p">,</span> <span class="mi">247</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">);</span>
+            <span class="k">border-radius</span><span class="p">:</span> <span class="mi">5</span><span class="kt">px</span><span class="p">;</span>
+            <span class="k">box-shadow</span><span class="p">:</span> <span class="mi">10</span><span class="kt">px</span> <span class="mi">10</span><span class="kt">px</span> <span class="mi">50</span><span class="kt">px</span> <span class="nb">rgba</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.29</span><span class="p">);</span>
+            <span class="k">font-family</span><span class="p">:</span> <span class="n">Helvetica</span><span class="p">,</span> <span class="n">Arial</span><span class="p">,</span> <span class="kc">sans-serif</span><span class="p">;</span>
+            <span class="kp">-webkit-</span><span class="k">transform-origin</span><span class="p">:</span> <span class="mi">0</span> <span class="mi">10</span><span class="kt">px</span><span class="p">;</span>
+            <span class="k">transform-origin</span><span class="p">:</span> <span class="mi">0</span> <span class="mi">10</span><span class="kt">px</span><span class="p">;</span>
+        <span class="p">}</span>
+        
+        <span class="p">.</span><span class="nc">landmark</span> <span class="nt">h1</span> <span class="p">{</span>
+            <span class="k">margin-top</span><span class="p">:</span> <span class="mi">0</span><span class="p">;</span>
+            <span class="k">padding</span><span class="p">:</span> <span class="mi">5</span><span class="kt">px</span> <span class="mi">15</span><span class="kt">px</span><span class="p">;</span>
+            <span class="k">background</span><span class="p">:</span> <span class="mh">#2aaef5</span><span class="p">;</span>
+            <span class="k">color</span><span class="p">:</span> <span class="nb">rgba</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">);</span>
+            <span class="k">font-size</span><span class="p">:</span> <span class="mi">16</span><span class="kt">px</span><span class="p">;</span>
+            <span class="k">font-weight</span><span class="p">:</span> <span class="mi">300</span><span class="p">;</span>
+        <span class="p">}</span>
+        
+        <span class="p">.</span><span class="nc">landmark</span> <span class="nt">section</span> <span class="p">{</span>
+            <span class="k">padding</span><span class="p">:</span> <span class="mi">0</span> <span class="mi">15</span><span class="kt">px</span> <span class="mi">5</span><span class="kt">px</span><span class="p">;</span>
+            <span class="k">font-size</span><span class="p">:</span> <span class="mi">14</span><span class="kt">px</span><span class="p">;</span>
+        <span class="p">}</span>
+        
+        <span class="p">.</span><span class="nc">landmark</span> <span class="nt">section</span> <span class="nt">p</span> <span class="p">{</span>
+            <span class="k">margin</span><span class="p">:</span> <span class="mi">5</span><span class="kt">px</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="p">}</span>
+        
+        <span class="p">.</span><span class="nc">landmark</span><span class="p">:</span><span class="nd">after</span> <span class="p">{</span>
+            <span class="k">content</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+            <span class="k">position</span><span class="p">:</span> <span class="kc">absolute</span><span class="p">;</span>
+            <span class="k">top</span><span class="p">:</span> <span class="mi">7</span><span class="kt">px</span><span class="p">;</span>
+            <span class="k">left</span><span class="p">:</span> <span class="mi">-13</span><span class="kt">px</span><span class="p">;</span>
+            <span class="k">width</span><span class="p">:</span> <span class="mi">0</span><span class="p">;</span>
+            <span class="k">height</span><span class="p">:</span> <span class="mi">0</span><span class="p">;</span>
+            <span class="k">margin-bottom</span><span class="p">:</span> <span class="mi">-13</span><span class="kt">px</span><span class="p">;</span>
+            <span class="k">border-right</span><span class="p">:</span> <span class="mi">13</span><span class="kt">px</span> <span class="kc">solid</span> <span class="mh">#2aaef5</span><span class="p">;</span>
+            <span class="k">border-top</span><span class="p">:</span> <span class="mi">13</span><span class="kt">px</span> <span class="kc">solid</span> <span class="nb">rgba</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+            <span class="k">border-bottom</span><span class="p">:</span> <span class="mi">13</span><span class="kt">px</span> <span class="kc">solid</span> <span class="nb">rgba</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+        <span class="p">}</span>
+        
+        <span class="p">@</span><span class="k">-webkit-keyframes</span> <span class="nt">scale-and-fadein</span> <span class="p">{</span>
+            <span class="nt">0</span><span class="o">%</span> <span class="p">{</span>
+                <span class="kp">-webkit-</span><span class="k">transform</span><span class="p">:</span> <span class="nb">scale</span><span class="p">(</span><span class="mf">0.2</span><span class="p">);</span>
+                <span class="k">opacity</span><span class="p">:</span> <span class="mi">0</span><span class="p">;</span>
+            <span class="p">}</span>
+        
+            <span class="nt">100</span><span class="o">%</span> <span class="p">{</span>
+                <span class="kp">-webkit-</span><span class="k">transform</span><span class="p">:</span> <span class="nb">scale</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+                <span class="k">opacity</span><span class="p">:</span> <span class="mi">1</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        
+        <span class="p">@</span><span class="k">keyframes</span> <span class="nt">scale-and-fadein</span> <span class="p">{</span>
+            <span class="nt">0</span><span class="o">%</span> <span class="p">{</span>
+                <span class="k">transform</span><span class="p">:</span> <span class="nb">scale</span><span class="p">(</span><span class="mf">0.2</span><span class="p">);</span>
+                <span class="k">opacity</span><span class="p">:</span> <span class="mi">0</span><span class="p">;</span>
+            <span class="p">}</span>
+        
+            <span class="nt">100</span><span class="o">%</span> <span class="p">{</span>
+                <span class="k">transform</span><span class="p">:</span> <span class="nb">scale</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+                <span class="k">opacity</span><span class="p">:</span> <span class="mi">1</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+        
+        <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+        
+        <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;map&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+        
+        <span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+        <span class="nx">mapkit</span><span class="p">.</span><span class="nx">init</span><span class="p">({</span>
+            <span class="nx">authorizationCallback</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">done</span><span class="p">)</span> <span class="p">{</span>
+                <span class="kd">var</span> <span class="nx">xhr</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">XMLHttpRequest</span><span class="p">();</span>
+                <span class="nx">xhr</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="s2">&quot;/services/jwt&quot;</span><span class="p">);</span>
+                <span class="nx">xhr</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;load&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                    <span class="nx">done</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">responseText</span><span class="p">);</span>
+                <span class="p">});</span>
+                <span class="nx">xhr</span><span class="p">.</span><span class="nx">send</span><span class="p">();</span>
+            <span class="p">}</span>
+        <span class="p">});</span>
+        
+        <span class="c1">// Landmarks data</span>
+        <span class="kd">var</span> <span class="nx">sanFranciscoLandmarks</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">{</span> <span class="nx">coordinate</span><span class="o">:</span> <span class="k">new</span> <span class="nx">mapkit</span><span class="p">.</span><span class="nx">Coordinate</span><span class="p">(</span><span class="mf">37.7951315</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.402986</span><span class="p">),</span> <span class="nx">title</span><span class="o">:</span> <span class="s2">&quot;Transamerica Pyramid&quot;</span><span class="p">,</span> <span class="nx">phone</span><span class="o">:</span> <span class="s2">&quot;+1-415-983-5420&quot;</span><span class="p">,</span> <span class="nx">url</span><span class="o">:</span> <span class="s2">&quot;http://www.transamericapyramidcenter.com/&quot;</span> <span class="p">},</span>
+            <span class="p">{</span> <span class="nx">coordinate</span><span class="o">:</span> <span class="k">new</span> <span class="nx">mapkit</span><span class="p">.</span><span class="nx">Coordinate</span><span class="p">(</span><span class="mf">37.7954201</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.39352</span><span class="p">),</span> <span class="nx">title</span><span class="o">:</span> <span class="s2">&quot;Ferry Building&quot;</span><span class="p">,</span> <span class="nx">phone</span><span class="o">:</span> <span class="s2">&quot;+1 (415) 983-8030&quot;</span><span class="p">,</span> <span class="nx">url</span><span class="o">:</span> <span class="s2">&quot;http://www.ferrybuildingmarketplace.com&quot;</span> <span class="p">},</span>
+            <span class="p">{</span> <span class="nx">coordinate</span><span class="o">:</span> <span class="k">new</span> <span class="nx">mapkit</span><span class="p">.</span><span class="nx">Coordinate</span><span class="p">(</span><span class="mf">37.8083396</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.415727</span><span class="p">),</span> <span class="nx">title</span><span class="o">:</span> <span class="s2">&quot;Fisherman&#39;s Wharf&quot;</span><span class="p">,</span> <span class="nx">phone</span><span class="o">:</span> <span class="s2">&quot;+1 (415) 673-3530&quot;</span><span class="p">,</span> <span class="nx">url</span><span class="o">:</span> <span class="s2">&quot;http://visitfishermanswharf.com&quot;</span> <span class="p">},</span>
+            <span class="p">{</span> <span class="nx">coordinate</span><span class="o">:</span> <span class="k">new</span> <span class="nx">mapkit</span><span class="p">.</span><span class="nx">Coordinate</span><span class="p">(</span><span class="mf">37.8023553</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.405742</span><span class="p">),</span> <span class="nx">title</span><span class="o">:</span> <span class="s2">&quot;Coit Tower&quot;</span><span class="p">,</span> <span class="nx">phone</span><span class="o">:</span> <span class="s2">&quot;+1 (415) 249-0995&quot;</span><span class="p">,</span> <span class="nx">url</span><span class="o">:</span> <span class="s2">&quot;http://sfrecpark.org/destination/telegraph-hill-pioneer-park/coit-tower/&quot;</span> <span class="p">},</span>
+            <span class="p">{</span> <span class="nx">coordinate</span><span class="o">:</span> <span class="k">new</span> <span class="nx">mapkit</span><span class="p">.</span><span class="nx">Coordinate</span><span class="p">(</span><span class="mf">37.7552305</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.452624</span><span class="p">),</span> <span class="nx">title</span><span class="o">:</span> <span class="s2">&quot;Sutro Tower&quot;</span><span class="p">,</span> <span class="nx">phone</span><span class="o">:</span> <span class="s2">&quot;+1 (415) 681-8850&quot;</span><span class="p">,</span> <span class="nx">url</span><span class="o">:</span> <span class="s2">&quot;http://www.sutrotower.com&quot;</span> <span class="p">},</span>
+            <span class="p">{</span> <span class="nx">coordinate</span><span class="o">:</span> <span class="k">new</span> <span class="nx">mapkit</span><span class="p">.</span><span class="nx">Coordinate</span><span class="p">(</span><span class="mf">37.779267</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.419269</span><span class="p">),</span> <span class="nx">title</span><span class="o">:</span> <span class="s2">&quot;City Hall&quot;</span><span class="p">,</span> <span class="nx">phone</span><span class="o">:</span> <span class="s2">&quot;+1 (415) 701-2311&quot;</span><span class="p">,</span> <span class="nx">url</span><span class="o">:</span> <span class="s2">&quot;http://sfgsa.org/index.aspx?page=1085&quot;</span> <span class="p">},</span>
+            <span class="p">{</span> <span class="nx">coordinate</span><span class="o">:</span> <span class="k">new</span> <span class="nx">mapkit</span><span class="p">.</span><span class="nx">Coordinate</span><span class="p">(</span><span class="mf">37.8184493</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.478409</span><span class="p">),</span> <span class="nx">title</span><span class="o">:</span> <span class="s2">&quot;Golden Gate Bridge&quot;</span><span class="p">,</span> <span class="nx">phone</span><span class="o">:</span> <span class="s2">&quot;+1 (415) 921-5858&quot;</span><span class="p">,</span> <span class="nx">url</span><span class="o">:</span> <span class="s2">&quot;http://www.goldengatebridge.org&quot;</span> <span class="p">},</span>
+            <span class="p">{</span> <span class="nx">coordinate</span><span class="o">:</span> <span class="k">new</span> <span class="nx">mapkit</span><span class="p">.</span><span class="nx">Coordinate</span><span class="p">(</span><span class="mf">37.7785538</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.514035</span><span class="p">),</span> <span class="nx">title</span><span class="o">:</span> <span class="s2">&quot;Cliff House&quot;</span><span class="p">,</span> <span class="nx">phone</span><span class="o">:</span> <span class="s2">&quot;+1 (415) 386-3330&quot;</span><span class="p">,</span> <span class="nx">url</span><span class="o">:</span> <span class="s2">&quot;http://www.cliffhouse.com/&quot;</span> <span class="p">}</span>
+        <span class="p">];</span>
+        
+        <span class="c1">// Landmark annotation callout delegate</span>
+        <span class="kd">var</span> <span class="nx">CALLOUT_OFFSET</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">DOMPoint</span><span class="p">(</span><span class="o">-</span><span class="mi">148</span><span class="p">,</span> <span class="o">-</span><span class="mi">78</span><span class="p">);</span>
+        <span class="kd">var</span> <span class="nx">landmarkAnnotationCallout</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="nx">calloutElementForAnnotation</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">annotation</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="nx">calloutForLandmarkAnnotation</span><span class="p">(</span><span class="nx">annotation</span><span class="p">);</span>
+            <span class="p">},</span>
+        
+            <span class="nx">calloutAnchorOffsetForAnnotation</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">annotation</span><span class="p">,</span> <span class="nx">element</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="nx">CALLOUT_OFFSET</span><span class="p">;</span>
+            <span class="p">},</span>
+        
+            <span class="nx">calloutAppearanceAnimationForAnnotation</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">annotation</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="s2">&quot;.4s cubic-bezier(0.4, 0, 0, 1.5) 0s 1 normal scale-and-fadein&quot;</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">};</span>
+        
+        <span class="c1">// Landmarks annotations</span>
+        <span class="kd">var</span> <span class="nx">annotations</span> <span class="o">=</span> <span class="nx">sanFranciscoLandmarks</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">landmark</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">annotation</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">mapkit</span><span class="p">.</span><span class="nx">MarkerAnnotation</span><span class="p">(</span><span class="nx">landmark</span><span class="p">.</span><span class="nx">coordinate</span><span class="p">,</span> <span class="p">{</span>
+                <span class="nx">callout</span><span class="o">:</span> <span class="nx">landmarkAnnotationCallout</span><span class="p">,</span>
+                <span class="nx">color</span><span class="o">:</span> <span class="s2">&quot;#c969e0&quot;</span>
+            <span class="p">});</span>
+            <span class="nx">annotation</span><span class="p">.</span><span class="nx">landmark</span> <span class="o">=</span> <span class="nx">landmark</span><span class="p">;</span>
+            <span class="k">return</span> <span class="nx">annotation</span><span class="p">;</span>
+        <span class="p">});</span>
+        
+        <span class="kd">var</span> <span class="nx">map</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">mapkit</span><span class="p">.</span><span class="nx">Map</span><span class="p">(</span><span class="s2">&quot;map&quot;</span><span class="p">);</span>
+        <span class="nx">map</span><span class="p">.</span><span class="nx">showItems</span><span class="p">(</span><span class="nx">annotations</span><span class="p">);</span>
+        
+        <span class="c1">// Landmark annotation custom callout</span>
+        <span class="kd">function</span> <span class="nx">calloutForLandmarkAnnotation</span><span class="p">(</span><span class="nx">annotation</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">div</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&quot;div&quot;</span><span class="p">);</span>
+            <span class="nx">div</span><span class="p">.</span><span class="nx">className</span> <span class="o">=</span> <span class="s2">&quot;landmark&quot;</span><span class="p">;</span>
+        
+            <span class="kd">var</span> <span class="nx">title</span> <span class="o">=</span> <span class="nx">div</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&quot;h1&quot;</span><span class="p">));</span>
+            <span class="nx">title</span><span class="p">.</span><span class="nx">textContent</span> <span class="o">=</span> <span class="nx">annotation</span><span class="p">.</span><span class="nx">landmark</span><span class="p">.</span><span class="nx">title</span><span class="p">;</span>
+        
+            <span class="kd">var</span> <span class="nx">section</span> <span class="o">=</span> <span class="nx">div</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&quot;section&quot;</span><span class="p">));</span>
+        
+            <span class="kd">var</span> <span class="nx">phone</span> <span class="o">=</span> <span class="nx">section</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&quot;p&quot;</span><span class="p">));</span>
+            <span class="nx">phone</span><span class="p">.</span><span class="nx">className</span> <span class="o">=</span> <span class="s2">&quot;phone&quot;</span><span class="p">;</span>
+            <span class="nx">phone</span><span class="p">.</span><span class="nx">textContent</span> <span class="o">=</span> <span class="nx">annotation</span><span class="p">.</span><span class="nx">landmark</span><span class="p">.</span><span class="nx">phone</span><span class="p">;</span>
+        
+            <span class="kd">var</span> <span class="nx">link</span> <span class="o">=</span> <span class="nx">section</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&quot;p&quot;</span><span class="p">));</span>
+            <span class="nx">link</span><span class="p">.</span><span class="nx">className</span> <span class="o">=</span> <span class="s2">&quot;homepage&quot;</span><span class="p">;</span>
+            <span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="nx">link</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">));</span>
+            <span class="nx">a</span><span class="p">.</span><span class="nx">href</span> <span class="o">=</span> <span class="nx">annotation</span><span class="p">.</span><span class="nx">landmark</span><span class="p">.</span><span class="nx">url</span><span class="p">;</span>
+            <span class="nx">a</span><span class="p">.</span><span class="nx">textContent</span> <span class="o">=</span> <span class="s2">&quot;website&quot;</span><span class="p">;</span>
+        
+            <span class="k">return</span> <span class="nx">div</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span></code></pre></figure>
+        
+</div>
+
+			<span class="modal-close icon icon-close" data-modal-close="modal-sample-map-3"></span>
+		</div>
+	</div>
+
+	<div class="modal" data-modal="modal-sample-map-4">
+		<div class="modal-inner">
+
+			<h3 class="margin-top-small">Draggable Annotations</h3>
+<p>A “loupe” is used to demonstrate draggable annotations. This example shows how to make a pin draggable, style a map with CSS, observe map events, and update the region of a second map in response to map events.</p>
+
+<div class="samplecode-code">
+          
+          
+        <figure class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="cp">&lt;!DOCTYPE html&gt;</span>
+        <span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&quot;utf-8&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://cdn.apple-mapkit.com/mk/5.x.x/mapkit.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">style</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/css&quot;</span><span class="p">&gt;</span>
+        <span class="nt">html</span><span class="o">,</span> <span class="nt">body</span><span class="o">,</span> <span class="p">#</span><span class="nn">container</span> <span class="p">{</span>
+            <span class="k">height</span><span class="p">:</span> <span class="mi">100</span><span class="kt">%</span><span class="p">;</span>
+            <span class="k">overflow</span><span class="p">:</span> <span class="kc">hidden</span><span class="p">;</span>
+        <span class="p">}</span>
+        
+        <span class="nt">body</span> <span class="p">{</span>
+            <span class="k">margin</span><span class="p">:</span> <span class="mi">0</span><span class="p">;</span>
+            <span class="k">padding</span><span class="p">:</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="p">}</span>
+        
+        <span class="p">#</span><span class="nn">loupe</span> <span class="p">{</span>
+            <span class="k">width</span><span class="p">:</span> <span class="mi">200</span><span class="kt">px</span><span class="p">;</span>
+            <span class="k">width</span><span class="p">:</span> <span class="mi">20</span><span class="kt">vw</span><span class="p">;</span>
+            <span class="k">height</span><span class="p">:</span> <span class="mi">200</span><span class="kt">px</span><span class="p">;</span>
+            <span class="k">height</span><span class="p">:</span> <span class="mi">20</span><span class="kt">vw</span><span class="p">;</span>
+            <span class="k">position</span><span class="p">:</span> <span class="kc">absolute</span><span class="p">;</span>
+            <span class="k">top</span><span class="p">:</span> <span class="mi">11</span><span class="kt">px</span><span class="p">;</span>
+            <span class="k">left</span><span class="p">:</span> <span class="mi">11</span><span class="kt">px</span><span class="p">;</span>
+        
+            <span class="k">overflow</span><span class="p">:</span> <span class="kc">hidden</span><span class="p">;</span>
+        
+            <span class="k">border</span><span class="p">:</span> <span class="mi">8</span><span class="kt">px</span> <span class="kc">solid</span> <span class="mh">#FFF</span><span class="p">;</span>
+        
+            <span class="kp">-webkit-</span><span class="k">box-shadow</span><span class="p">:</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">5</span><span class="kt">px</span> <span class="mi">4</span><span class="kt">px</span> <span class="nb">rgba</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">);</span>
+            <span class="kp">-moz-</span><span class="k">box-shadow</span><span class="p">:</span>    <span class="mi">0</span> <span class="mi">0</span> <span class="mi">5</span><span class="kt">px</span> <span class="mi">4</span><span class="kt">px</span> <span class="nb">rgba</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">);</span>
+            <span class="k">box-shadow</span><span class="p">:</span>         <span class="mi">0</span> <span class="mi">0</span> <span class="mi">5</span><span class="kt">px</span> <span class="mi">4</span><span class="kt">px</span> <span class="nb">rgba</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">);</span>
+        <span class="p">}</span>
+        
+        <span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+        
+        <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;container&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;loupe&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+        
+        <span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/javascript&quot;</span><span class="p">&gt;</span>
+        
+        <span class="kd">var</span> <span class="nx">MAGNIFICATION_FACTOR</span> <span class="o">=</span> <span class="mi">8</span><span class="p">,</span>
+            <span class="nx">LOUPE_DIAMETER</span> <span class="o">=</span> <span class="mi">180</span><span class="p">;</span>
+        
+        <span class="kd">var</span> <span class="nx">center</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">mapkit</span><span class="p">.</span><span class="nx">Coordinate</span><span class="p">(</span><span class="mf">37.7952</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.4028</span><span class="p">);</span> <span class="c1">// Transamerica Pyramid, SF</span>
+        
+        <span class="nx">mapkit</span><span class="p">.</span><span class="nx">init</span><span class="p">({</span>
+            <span class="nx">authorizationCallback</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">done</span><span class="p">)</span> <span class="p">{</span>
+                <span class="kd">var</span> <span class="nx">xhr</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">XMLHttpRequest</span><span class="p">();</span>
+                <span class="nx">xhr</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="s2">&quot;/services/jwt&quot;</span><span class="p">);</span>
+                <span class="nx">xhr</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;load&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                    <span class="nx">done</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">responseText</span><span class="p">);</span>
+                <span class="p">});</span>
+                <span class="nx">xhr</span><span class="p">.</span><span class="nx">send</span><span class="p">();</span>
+            <span class="p">}</span>
+        <span class="p">});</span>
+        
+        <span class="c1">// Call when the zoom level has changed.</span>
+        <span class="c1">// Update the loupe to region centered on the marker that is 8x the map.</span>
+        <span class="kd">function</span> <span class="nx">calculateMagnifiedRegion</span><span class="p">(</span><span class="nx">map</span><span class="p">,</span> <span class="nx">marker</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">ratio</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">min</span><span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">innerWidth</span><span class="p">,</span> <span class="nb">window</span><span class="p">.</span><span class="nx">innerHeight</span><span class="p">)</span> <span class="o">/</span> <span class="nx">LOUPE_DIAMETER</span><span class="p">,</span>
+                <span class="nx">delta</span> <span class="o">=</span> <span class="nx">map</span><span class="p">.</span><span class="nx">region</span><span class="p">.</span><span class="nx">span</span><span class="p">.</span><span class="nx">latitudeDelta</span> <span class="o">/</span> <span class="p">(</span><span class="nx">MAGNIFICATION_FACTOR</span> <span class="o">*</span> <span class="nx">ratio</span><span class="p">),</span>
+                <span class="nx">newSpan</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">mapkit</span><span class="p">.</span><span class="nx">CoordinateSpan</span><span class="p">(</span><span class="nx">delta</span><span class="p">,</span> <span class="nx">delta</span><span class="p">);</span>
+            <span class="k">return</span> <span class="k">new</span> <span class="nx">mapkit</span><span class="p">.</span><span class="nx">CoordinateRegion</span><span class="p">(</span><span class="nx">marker</span><span class="p">.</span><span class="nx">coordinate</span><span class="p">,</span> <span class="nx">newSpan</span><span class="p">);</span>
+        <span class="p">}</span>
+        
+        <span class="kd">var</span> <span class="nx">map</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">mapkit</span><span class="p">.</span><span class="nx">Map</span><span class="p">(</span><span class="s2">&quot;container&quot;</span><span class="p">,</span> <span class="p">{</span> <span class="nx">center</span><span class="o">:</span> <span class="nx">center</span> <span class="p">});</span>
+        <span class="nx">map</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;zoom-end&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="c1">// Update the loupe&#39;s magnification after a zoom change</span>
+            <span class="nx">zoomedMap</span><span class="p">.</span><span class="nx">setRegionAnimated</span><span class="p">(</span><span class="nx">calculateMagnifiedRegion</span><span class="p">(</span><span class="nx">map</span><span class="p">,</span> <span class="nx">marker</span><span class="p">));</span>
+        <span class="p">});</span>
+        
+        <span class="kd">var</span> <span class="nx">marker</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">mapkit</span><span class="p">.</span><span class="nx">MarkerAnnotation</span><span class="p">(</span><span class="nx">map</span><span class="p">.</span><span class="nx">center</span><span class="p">,</span> <span class="p">{</span>
+            <span class="nx">draggable</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="nx">selected</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="nx">title</span><span class="o">:</span> <span class="s2">&quot;Drag me&quot;</span>
+        <span class="p">});</span>
+        <span class="nx">marker</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;drag-start&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+            <span class="c1">// No need to show &quot;Drag me&quot; message once user has dragged</span>
+            <span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+        <span class="p">});</span>
+        <span class="nx">marker</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;drag-end&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="c1">// Center the loupe on the marker&#39;s new location</span>
+            <span class="nx">zoomedMap</span><span class="p">.</span><span class="nx">setCenterAnimated</span><span class="p">(</span><span class="nx">marker</span><span class="p">.</span><span class="nx">coordinate</span><span class="p">);</span>
+        <span class="p">});</span>
+        <span class="nx">map</span><span class="p">.</span><span class="nx">addAnnotation</span><span class="p">(</span><span class="nx">marker</span><span class="p">);</span>
+        
+        <span class="c1">// Initialize the loupe based on the marker&#39;s location on the map</span>
+        <span class="kd">var</span> <span class="nx">zoomedMap</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">mapkit</span><span class="p">.</span><span class="nx">Map</span><span class="p">(</span><span class="s2">&quot;loupe&quot;</span><span class="p">,</span> <span class="p">{</span>
+            <span class="nx">isScrollEnabled</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+            <span class="nx">isZoomEnabled</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+            <span class="nx">showsCompass</span><span class="o">:</span> <span class="nx">mapkit</span><span class="p">.</span><span class="nx">FeatureVisibility</span><span class="p">.</span><span class="nx">Hidden</span><span class="p">,</span>
+            <span class="nx">showsZoomControl</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+            <span class="nx">showsMapTypeControl</span><span class="o">:</span> <span class="kc">false</span>
+        <span class="p">});</span>
+        <span class="nx">zoomedMap</span><span class="p">.</span><span class="nx">setRegionAnimated</span><span class="p">(</span><span class="nx">calculateMagnifiedRegion</span><span class="p">(</span><span class="nx">map</span><span class="p">,</span> <span class="nx">marker</span><span class="p">));</span>
+        
+        <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span></code></pre></figure>
+        
+       </div>
+
+			<span class="modal-close icon icon-close" data-modal-close="modal-sample-map-4"></span>
+		</div>
+	</div>
+
+	<div class="modal" data-modal="modal-sample-map-5">
+		<div class="modal-inner">
+
+			<h3 class="margin-top-small">GeoJSON Import</h3>
+<p>Create a map with an overlay for each state in the U.S. The color of each overlay represents the population in that
+    state.
+    <br>
+    This sample uses GeoJSON data derived from <a
+        href="https://www.census.gov/geographies/mapping-files/time-series/geo/carto-boundary-file.html"
+        target="_blank">cartographic boundary files</a> and <a
+        href="https://factfinder.census.gov/faces/tableservices/jsf/pages/productview.xhtml?src=bkmk#"
+        target="_blank">2018 population estimates</a> provided by the <a href="https://www.census.gov/"
+        target="_blank">United States Census Bureau</a>. The code shows how to use a delegate when importing GeoJSON
+    data to add style and data to the imported items; the color of each overlay gives an indication of its population,
+    and selecting an overlay displays the the information associated with that state.</p>
+
+    <div class="samplecode-code">
+
+
+        <figure class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="cp">&lt;!DOCTYPE html&gt;</span>
+        <span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>GeoJSON Import<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&quot;utf-8&quot;</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://cdn.apple-mapkit.com/mk/5.x.x/mapkit.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span>
+        
+        <span class="nt">html</span><span class="o">,</span> <span class="nt">body</span> <span class="p">{</span>
+            <span class="k">height</span><span class="p">:</span> <span class="mi">100</span><span class="kt">%</span><span class="p">;</span>
+            <span class="k">overflow</span><span class="p">:</span> <span class="kc">hidden</span><span class="p">;</span>
+        <span class="p">}</span>
+        
+        <span class="nt">body</span> <span class="p">{</span>
+            <span class="k">margin</span><span class="p">:</span> <span class="mi">0</span><span class="p">;</span>
+            <span class="k">padding</span><span class="p">:</span> <span class="mi">0</span><span class="p">;</span>
+            <span class="k">font-family</span><span class="p">:</span> <span class="s2">&quot;-apple-system-font&quot;</span><span class="p">,</span> <span class="s2">&quot;HelveticaNeue-Medium&quot;</span><span class="p">,</span> <span class="s2">&quot;Helvetica&quot;</span><span class="p">,</span> <span class="s2">&quot;Arial&quot;</span><span class="p">,</span> <span class="s2">&quot;sans-serif&quot;</span><span class="p">;</span>
+        <span class="p">}</span>
+        
+        <span class="p">.</span><span class="nc">container</span> <span class="p">{</span>
+            <span class="k">position</span><span class="p">:</span> <span class="kc">relative</span><span class="p">;</span>
+        <span class="p">}</span>
+        
+        <span class="p">#</span><span class="nn">map</span> <span class="p">{</span>
+            <span class="k">width</span><span class="p">:</span> <span class="mi">100</span><span class="kt">%</span><span class="p">;</span>
+            <span class="k">max-width</span><span class="p">:</span> <span class="mi">600</span><span class="kt">px</span><span class="p">;</span>
+            <span class="k">height</span><span class="p">:</span> <span class="mi">600</span><span class="kt">px</span><span class="p">;</span>
+        <span class="p">}</span>
+        
+        <span class="p">#</span><span class="nn">infoPopup</span> <span class="p">{</span>
+            <span class="k">display</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span>
+            <span class="k">top</span><span class="p">:</span> <span class="mi">7</span><span class="kt">px</span><span class="p">;</span>
+            <span class="k">left</span><span class="p">:</span> <span class="mi">67</span><span class="kt">px</span><span class="p">;</span>
+            <span class="k">background</span><span class="p">:</span> <span class="mh">#FFFFFF</span><span class="p">;</span>
+            <span class="k">padding</span><span class="p">:</span> <span class="mi">5</span><span class="kt">px</span> <span class="mi">15</span><span class="kt">px</span><span class="p">;</span>
+            <span class="k">position</span><span class="p">:</span> <span class="kc">absolute</span><span class="p">;</span>
+            <span class="k">z-index</span><span class="p">:</span> <span class="mi">1000</span><span class="p">;</span>
+            <span class="k">min-width</span><span class="p">:</span><span class="mi">180</span><span class="kt">px</span><span class="p">;</span>
+            <span class="k">font</span><span class="p">:</span> <span class="mi">13</span><span class="kt">px</span><span class="o">/</span><span class="mi">16</span><span class="kt">px</span> <span class="s2">&quot;-apple-system-font&quot;</span><span class="p">,</span> <span class="s2">&quot;HelveticaNeue-Medium&quot;</span><span class="p">,</span> <span class="s2">&quot;Helvetica&quot;</span><span class="p">,</span> <span class="s2">&quot;Arial&quot;</span><span class="p">,</span> <span class="s2">&quot;sans-serif&quot;</span><span class="p">;</span>
+            <span class="k">color</span><span class="p">:</span> <span class="mh">#212121</span><span class="p">;</span>
+            <span class="k">border</span><span class="p">:</span> <span class="mi">1</span><span class="kt">px</span> <span class="kc">solid</span> <span class="nb">rgba</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mf">0.2</span><span class="p">);</span>
+            <span class="k">border-radius</span><span class="p">:</span> <span class="mi">3</span><span class="kt">px</span><span class="p">;</span>
+        <span class="p">}</span>
+        
+        <span class="p">.</span><span class="nc">container</span> <span class="p">.</span><span class="nc">map-legend</span> <span class="p">{</span>
+            <span class="k">position</span><span class="p">:</span> <span class="kc">absolute</span><span class="p">;</span>
+            <span class="k">z-index</span><span class="p">:</span> <span class="mi">1000</span><span class="p">;</span>
+            <span class="k">top</span><span class="p">:</span> <span class="mi">7</span><span class="kt">px</span><span class="p">;</span>
+            <span class="k">left</span><span class="p">:</span> <span class="mi">7</span><span class="kt">px</span><span class="p">;</span>
+        <span class="p">}</span>
+        
+        <span class="p">.</span><span class="nc">map-legend</span> <span class="nt">div</span> <span class="p">{</span>
+            <span class="k">margin-bottom</span><span class="p">:</span> <span class="mi">5</span><span class="kt">px</span><span class="p">;</span>
+            <span class="k">width</span><span class="p">:</span> <span class="mi">40</span><span class="kt">px</span><span class="p">;</span>
+            <span class="k">font-size</span><span class="p">:</span> <span class="mi">12</span><span class="kt">px</span><span class="p">;</span>
+            <span class="k">color</span><span class="p">:</span> <span class="mh">#fff</span><span class="p">;</span>
+            <span class="k">padding</span><span class="p">:</span> <span class="mi">4</span><span class="kt">px</span> <span class="mi">7</span><span class="kt">px</span><span class="p">;</span>
+        <span class="p">}</span>
+        
+        <span class="p">#</span><span class="nn">infoPopup</span> <span class="p">.</span><span class="nc">info</span> <span class="p">{</span>
+            <span class="k">padding</span><span class="p">:</span> <span class="mi">10</span><span class="kt">px</span> <span class="mi">0</span><span class="p">;</span>
+            <span class="k">box-sizing</span><span class="p">:</span> <span class="kc">border-box</span><span class="p">;</span>
+        <span class="p">}</span>
+        
+        <span class="p">#</span><span class="nn">infoPopup</span> <span class="p">.</span><span class="nc">info</span><span class="p">:</span><span class="nd">first-child</span> <span class="p">{</span>
+            <span class="k">border-bottom</span><span class="p">:</span> <span class="mi">1</span><span class="kt">px</span> <span class="kc">solid</span> <span class="nb">rgba</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mf">0.2</span><span class="p">);</span>
+        <span class="p">}</span>
+        
+        <span class="p">#</span><span class="nn">infoPopup</span> <span class="p">.</span><span class="nc">info-country</span><span class="o">,</span>  <span class="p">#</span><span class="nn">infoPopup</span> <span class="p">.</span><span class="nc">info-population</span><span class="p">{</span>
+            <span class="k">margin-left</span><span class="p">:</span> <span class="mi">5</span><span class="kt">px</span><span class="p">;</span>
+            <span class="k">color</span><span class="p">:</span> <span class="mh">#464545</span><span class="p">;</span>
+            <span class="k">font-style</span><span class="p">:</span> <span class="kc">italic</span><span class="p">;</span>
+        <span class="p">}</span>
+        
+                <span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+            <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;container&quot;</span><span class="p">&gt;</span>
+                    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;map&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+                    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;infoPopup&quot;</span><span class="p">&gt;</span>
+                        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;info&quot;</span><span class="p">&gt;</span>
+                            <span class="p">&lt;</span><span class="nt">span</span><span class="p">&gt;</span>State:<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+                            <span class="p">&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;info-country&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+                        <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+                        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;info&quot;</span><span class="p">&gt;</span>
+                            <span class="p">&lt;</span><span class="nt">span</span><span class="p">&gt;</span>Population:<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+                            <span class="p">&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;info-population&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+                        <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+                    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+                    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;map-legend&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+                <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+        
+        <span class="kd">var</span> <span class="nx">LINE_WIDTH_DEFAULT</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">;</span>
+        <span class="kd">var</span> <span class="nx">LINE_WIDTH_SELECTED</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+        <span class="kd">var</span> <span class="nx">MAP_COLORS</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="nx">color</span><span class="o">:</span> <span class="s2">&quot;#fcc5c0&quot;</span><span class="p">,</span>
+                <span class="nx">range</span><span class="o">:</span> <span class="s2">&quot;&lt; 1M&quot;</span><span class="p">,</span>
+                <span class="nx">num</span><span class="o">:</span> <span class="mi">1000000</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                <span class="nx">color</span><span class="o">:</span> <span class="s2">&quot;#fa9fb5&quot;</span><span class="p">,</span>
+                <span class="nx">range</span><span class="o">:</span> <span class="s2">&quot;1M +&quot;</span><span class="p">,</span>
+                <span class="nx">num</span><span class="o">:</span> <span class="mi">5000000</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                <span class="nx">color</span><span class="o">:</span> <span class="s2">&quot;#f768a1&quot;</span><span class="p">,</span>
+                <span class="nx">range</span><span class="o">:</span> <span class="s2">&quot;5M +&quot;</span><span class="p">,</span>
+                <span class="nx">num</span><span class="o">:</span> <span class="mi">10000000</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                <span class="nx">color</span><span class="o">:</span> <span class="s2">&quot;#dd3497&quot;</span><span class="p">,</span>
+                <span class="nx">range</span><span class="o">:</span> <span class="s2">&quot;10M +&quot;</span><span class="p">,</span>
+                <span class="nx">num</span><span class="o">:</span> <span class="mi">20000000</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                <span class="nx">color</span><span class="o">:</span> <span class="s2">&quot;#ae017e&quot;</span><span class="p">,</span>
+                <span class="nx">range</span><span class="o">:</span> <span class="s2">&quot;20M +&quot;</span><span class="p">,</span>
+                <span class="nx">num</span><span class="o">:</span> <span class="mi">30000000</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                <span class="nx">color</span><span class="o">:</span> <span class="s2">&quot;#7a0177&quot;</span><span class="p">,</span>
+                <span class="nx">range</span><span class="o">:</span> <span class="s2">&quot;&gt; 30M&quot;</span><span class="p">,</span>
+                <span class="nx">num</span><span class="o">:</span> <span class="kc">Infinity</span>
+            <span class="p">}</span>
+        <span class="p">];</span>
+        
+        <span class="c1">// Initialize mapkit and create a new map.</span>
+        <span class="nx">mapkit</span><span class="p">.</span><span class="nx">init</span><span class="p">({</span>
+            <span class="nx">authorizationCallback</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">done</span><span class="p">)</span> <span class="p">{</span>
+                <span class="kd">var</span> <span class="nx">xhr</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">XMLHttpRequest</span><span class="p">();</span>
+                <span class="nx">xhr</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="s2">&quot;/services/jwt&quot;</span><span class="p">);</span>
+                <span class="nx">xhr</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;load&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                    <span class="nx">done</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">responseText</span><span class="p">);</span>
+                <span class="p">});</span>
+                <span class="nx">xhr</span><span class="p">.</span><span class="nx">send</span><span class="p">();</span>
+            <span class="p">}</span>
+        <span class="p">});</span>
+        <span class="kd">var</span> <span class="nx">map</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">mapkit</span><span class="p">.</span><span class="nx">Map</span><span class="p">(</span><span class="s2">&quot;map&quot;</span><span class="p">,</span> <span class="p">{</span>
+            <span class="nx">isRotationEnabled</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+            <span class="nx">isZoomEnabled</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+            <span class="nx">showsZoomControl</span><span class="o">:</span> <span class="kc">false</span>
+        <span class="p">});</span>
+        
+        <span class="c1">// Setup the UI to show a popup when a state is selected.</span>
+        <span class="kd">var</span> <span class="nx">infoPopup</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;infoPopup&quot;</span><span class="p">);</span>
+        <span class="kd">var</span> <span class="nx">infoCountry</span> <span class="o">=</span> <span class="nx">infoPopup</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;.info-country&quot;</span><span class="p">);</span>
+        <span class="kd">var</span> <span class="nx">infoPopulation</span> <span class="o">=</span> <span class="nx">infoPopup</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;.info-population&quot;</span><span class="p">);</span>
+        <span class="kd">var</span> <span class="nx">mapLegend</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;.map-legend&quot;</span><span class="p">);</span>
+        
+        <span class="kd">function</span> <span class="nx">showInfo</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">infoCountry</span><span class="p">.</span><span class="nx">innerText</span> <span class="o">=</span> <span class="nx">data</span><span class="p">.</span><span class="nx">name</span><span class="p">;</span>
+            <span class="nx">infoPopulation</span><span class="p">.</span><span class="nx">innerText</span> <span class="o">=</span> <span class="nx">data</span><span class="p">.</span><span class="nx">population</span><span class="p">.</span><span class="nx">toLocaleString</span><span class="p">();</span>
+            <span class="nx">infoPopup</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">display</span> <span class="o">=</span> <span class="s2">&quot;block&quot;</span><span class="p">;</span>
+        <span class="p">}</span>
+        
+        <span class="kd">function</span> <span class="nx">closeInfo</span><span class="p">()</span> <span class="p">{</span>
+            <span class="nx">infoPopup</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">display</span> <span class="o">=</span> <span class="s2">&quot;none&quot;</span><span class="p">;</span>
+        <span class="p">}</span>
+        
+        <span class="kd">function</span> <span class="nx">addLegend</span><span class="p">()</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">el</span><span class="p">,</span> <span class="nx">textNode</span><span class="p">;</span>
+            <span class="nx">MAP_COLORS</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">mColor</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">el</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&quot;div&quot;</span><span class="p">);</span>
+                <span class="nx">textNode</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createTextNode</span><span class="p">(</span><span class="nx">mColor</span><span class="p">.</span><span class="nx">range</span><span class="p">);</span>
+                <span class="nx">el</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">textNode</span><span class="p">);</span>
+                <span class="nx">el</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">background</span> <span class="o">=</span> <span class="nx">mColor</span><span class="p">.</span><span class="nx">color</span><span class="p">;</span>
+                <span class="nx">mapLegend</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">el</span><span class="p">);</span>
+            <span class="p">});</span>
+        <span class="p">}</span>
+        
+        <span class="nx">addLegend</span><span class="p">();</span>
+        
+        <span class="c1">// Import GeoJSON data with the shape of the states and their population.</span>
+        <span class="nx">mapkit</span><span class="p">.</span><span class="nx">importGeoJSON</span><span class="p">(</span><span class="s2">&quot;states.json&quot;</span><span class="p">,</span> <span class="p">{</span>
+        
+            <span class="c1">// Some states are represented as MultiPolygons; we transform them into</span>
+            <span class="c1">// a single PolygonOverlay by concatenating the lists of lists of points.</span>
+            <span class="nx">itemForMultiPolygon</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">collection</span><span class="p">,</span> <span class="nx">geoJSON</span><span class="p">)</span> <span class="p">{</span>
+                <span class="kd">var</span> <span class="nx">overlays</span> <span class="o">=</span> <span class="nx">collection</span><span class="p">.</span><span class="nx">getFlattenedItemList</span><span class="p">();</span>
+                <span class="kd">var</span> <span class="nx">points</span> <span class="o">=</span> <span class="nx">overlays</span><span class="p">.</span><span class="nx">reduce</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">points</span><span class="p">,</span> <span class="nx">overlay</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="k">return</span> <span class="nx">points</span><span class="p">.</span><span class="nx">concat</span><span class="p">(</span><span class="nx">overlay</span><span class="p">.</span><span class="nx">points</span><span class="p">);</span>
+                <span class="p">},</span> <span class="p">[]);</span>
+                <span class="k">return</span> <span class="k">new</span> <span class="nx">mapkit</span><span class="p">.</span><span class="nx">PolygonOverlay</span><span class="p">(</span><span class="nx">points</span><span class="p">);</span>
+            <span class="p">},</span>
+        
+            <span class="c1">// After an overlay has been created for a feature (either directly or through</span>
+            <span class="c1">// itemForMultiPolygon above), the properties of the feature are used to add data</span>
+            <span class="c1">// and set the style (especially the fill color) based on population count.</span>
+            <span class="nx">itemForFeature</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">overlay</span><span class="p">,</span> <span class="nx">geoJSON</span><span class="p">)</span> <span class="p">{</span>
+                <span class="kd">var</span> <span class="nx">population</span> <span class="o">=</span> <span class="nx">geoJSON</span><span class="p">.</span><span class="nx">properties</span><span class="p">.</span><span class="nx">population</span><span class="p">;</span>
+        
+                <span class="c1">// Add data to the overlay to be shown when it is selected.</span>
+                <span class="nx">overlay</span><span class="p">.</span><span class="nx">data</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="nx">name</span><span class="o">:</span> <span class="nx">geoJSON</span><span class="p">.</span><span class="nx">properties</span><span class="p">.</span><span class="nx">name</span><span class="p">,</span>
+                    <span class="nx">population</span><span class="o">:</span> <span class="nx">geoJSON</span><span class="p">.</span><span class="nx">properties</span><span class="p">.</span><span class="nx">population</span>
+                <span class="p">};</span>
+        
+                <span class="c1">// Find the right color for the population and the set the style.</span>
+                <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">MAP_COLORS</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="o">++</span><span class="nx">i</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="nx">population</span> <span class="o">&lt;</span> <span class="nx">MAP_COLORS</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">num</span><span class="p">)</span> <span class="p">{</span>
+                        <span class="nx">overlay</span><span class="p">.</span><span class="nx">style</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">mapkit</span><span class="p">.</span><span class="nx">Style</span><span class="p">({</span>
+                            <span class="nx">fillOpacity</span><span class="o">:</span> <span class="mf">0.7</span><span class="p">,</span>
+                            <span class="nx">lineWidth</span><span class="o">:</span> <span class="nx">LINE_WIDTH_DEFAULT</span><span class="p">,</span>
+                            <span class="nx">fillColor</span><span class="o">:</span> <span class="nx">MAP_COLORS</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">color</span>
+                        <span class="p">});</span>
+                        <span class="k">break</span><span class="p">;</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+                <span class="k">return</span> <span class="nx">overlay</span><span class="p">;</span>
+            <span class="p">},</span>
+        
+            <span class="c1">// When all the data has been imported, we can show the results.</span>
+            <span class="nx">geoJSONDidComplete</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">overlays</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">map</span><span class="p">.</span><span class="nx">addItems</span><span class="p">(</span><span class="nx">overlays</span><span class="p">);</span>
+                <span class="nx">map</span><span class="p">.</span><span class="nx">showItems</span><span class="p">(</span><span class="nx">overlays</span><span class="p">.</span><span class="nx">getFlattenedItemList</span><span class="p">().</span><span class="nx">filter</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">overlay</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="c1">// Focus the map on the continental states at first.</span>
+                    <span class="kd">var</span> <span class="nx">name</span> <span class="o">=</span> <span class="nx">overlay</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">name</span><span class="p">;</span>
+                    <span class="k">return</span> <span class="nx">name</span> <span class="o">!==</span> <span class="s2">&quot;Alaska&quot;</span> <span class="o">&amp;&amp;</span> <span class="nx">name</span> <span class="o">!==</span> <span class="s2">&quot;Hawaii&quot;</span><span class="p">;</span>
+                <span class="p">}),</span> <span class="p">{</span>
+                    <span class="c1">// Leave some padding for the color key.</span>
+                    <span class="nx">padding</span><span class="o">:</span> <span class="k">new</span> <span class="nx">mapkit</span><span class="p">.</span><span class="nx">Padding</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">67</span><span class="p">)</span>
+                <span class="p">});</span>
+            <span class="p">}</span>
+        <span class="p">});</span>
+        
+        <span class="c1">// Show info about the selected state.</span>
+        <span class="nx">map</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;select&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">overlay</span> <span class="o">&amp;&amp;</span> <span class="nx">event</span><span class="p">.</span><span class="nx">overlay</span><span class="p">.</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">event</span><span class="p">.</span><span class="nx">overlay</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">lineWidth</span> <span class="o">=</span> <span class="nx">LINE_WIDTH_SELECTED</span><span class="p">;</span>
+                <span class="nx">showInfo</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">overlay</span><span class="p">.</span><span class="nx">data</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">});</span>
+        
+        <span class="c1">// Hide info when a state is deselected.</span>
+        <span class="nx">map</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;deselect&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">overlay</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">event</span><span class="p">.</span><span class="nx">overlay</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">lineWidth</span> <span class="o">=</span> <span class="nx">LINE_WIDTH_DEFAULT</span><span class="p">;</span>
+                <span class="nx">closeInfo</span><span class="p">();</span>
+            <span class="p">}</span>
+        <span class="p">});</span>
+        
+                <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+            <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span></code></pre></figure>
+        
+            </div>
+        
+
+			<span class="modal-close icon icon-close" data-modal-close="modal-sample-map-5"></span>
+		</div>
+	</div>
+
+	<div class="modal" data-modal="modal-sample-map-6">
+		<div class="modal-inner">
+
+			<h3 class="margin-top-small">Region and Zoom Limits</h3>
+<p>Create a map restricted by camera boundaries and zoom range to two cities (San Francisco and Toronto). Click on the
+    desired city to change the region and zoom limits.</p>
+
+<div class="samplecode-code">
+
+
+    <figure class="highlight">
+        <pre><code class="language-html" data-lang="html"><span></span><span class="cp">&lt;!DOCTYPE html&gt;</span>
+        <span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>Region and Zoom Limits<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&quot;utf-8&quot;</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://cdn.apple-mapkit.com/mk/5.x.x/mapkit.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span>
+        
+        <span class="nt">html</span><span class="o">,</span> <span class="nt">body</span> <span class="p">{</span>
+            <span class="k">height</span><span class="p">:</span> <span class="mi">100</span><span class="kt">%</span><span class="p">;</span>
+            <span class="k">overflow</span><span class="p">:</span> <span class="kc">hidden</span><span class="p">;</span>
+        <span class="p">}</span>
+        
+        <span class="nt">body</span> <span class="p">{</span>
+            <span class="k">margin</span><span class="p">:</span> <span class="mi">0</span><span class="p">;</span>
+            <span class="k">padding</span><span class="p">:</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="p">}</span>
+        
+        <span class="p">#</span><span class="nn">city-regions</span> <span class="p">{</span>
+            <span class="k">width</span><span class="p">:</span> <span class="mi">100</span><span class="kt">%</span><span class="p">;</span>
+            <span class="k">height</span><span class="p">:</span> <span class="mi">40</span><span class="kt">px</span><span class="p">;</span>
+            <span class="k">cursor</span><span class="p">:</span> <span class="kc">default</span><span class="p">;</span>
+            <span class="k">font-family</span><span class="p">:</span> <span class="s2">&quot;-apple-system-font&quot;</span><span class="p">,</span> <span class="n">Futura</span><span class="p">,</span> <span class="s2">&quot;Helvetica Neue&quot;</span><span class="p">,</span> <span class="s2">&quot;Helvetica&quot;</span><span class="p">,</span> <span class="s2">&quot;Arial&quot;</span><span class="p">,</span> <span class="s2">&quot;sans-serif&quot;</span><span class="p">;</span>
+        <span class="p">}</span>
+        
+        <span class="p">#</span><span class="nn">city-regions</span> <span class="nt">div</span> <span class="p">{</span>
+            <span class="k">float</span><span class="p">:</span> <span class="kc">left</span><span class="p">;</span>
+            <span class="k">width</span><span class="p">:</span> <span class="mi">50</span><span class="kt">%</span><span class="p">;</span>
+            <span class="k">height</span><span class="p">:</span> <span class="mi">100</span><span class="kt">%</span><span class="p">;</span>
+            <span class="k">text-align</span><span class="p">:</span> <span class="kc">center</span><span class="p">;</span>
+            <span class="k">background-color</span><span class="p">:</span> <span class="kc">white</span><span class="p">;</span>
+        <span class="p">}</span>
+        
+        <span class="p">#</span><span class="nn">city-regions</span> <span class="nt">p</span> <span class="p">{</span>
+            <span class="k">margin-top</span><span class="p">:</span> <span class="mi">9</span><span class="kt">px</span><span class="p">;</span>
+            <span class="k">margin-bottom</span><span class="p">:</span> <span class="mi">10</span><span class="kt">px</span><span class="p">;</span>
+        <span class="p">}</span>
+        
+        <span class="p">#</span><span class="nn">city-regions</span> <span class="nt">div</span><span class="p">.</span><span class="nc">selected-city</span> <span class="p">{</span>
+            <span class="k">background-color</span><span class="p">:</span> <span class="mh">#08f</span><span class="p">;</span>
+            <span class="k">color</span><span class="p">:</span> <span class="mh">#f8f9f0</span><span class="p">;</span>
+        <span class="p">}</span>
+        
+        <span class="p">#</span><span class="nn">map</span> <span class="p">{</span>
+            <span class="k">width</span><span class="p">:</span> <span class="mi">100</span><span class="kt">%</span><span class="p">;</span>
+            <span class="k">height</span><span class="p">:</span> <span class="mi">560</span><span class="kt">px</span><span class="p">;</span>
+        <span class="p">}</span>
+        
+                <span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+            <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;city-regions&quot;</span><span class="p">&gt;</span>
+                    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;sanfrancisco&quot;</span><span class="p">&gt;</span>
+                        <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>San Francisco<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+                    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+                    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;toronto&quot;</span><span class="p">&gt;</span>
+                        <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Toronto<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+                    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+                <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;map&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+        
+                <span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+        
+        <span class="kd">var</span> <span class="nx">SELECTED_CITY_CLASS</span> <span class="o">=</span> <span class="s2">&quot;selected-city&quot;</span><span class="p">;</span>
+        
+        <span class="c1">// Define camera boundaries and zoom ranges for San Francisco and Toronto.</span>
+        <span class="kd">var</span> <span class="nx">CITIES</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="nx">sanfrancisco</span><span class="o">:</span> <span class="p">{</span>
+                <span class="nx">region</span><span class="o">:</span> <span class="k">new</span> <span class="nx">mapkit</span><span class="p">.</span><span class="nx">CoordinateRegion</span><span class="p">(</span>
+                    <span class="k">new</span> <span class="nx">mapkit</span><span class="p">.</span><span class="nx">Coordinate</span><span class="p">(</span><span class="mf">37.7812</span><span class="p">,</span> <span class="o">-</span><span class="mf">122.44755</span><span class="p">),</span>
+                    <span class="k">new</span> <span class="nx">mapkit</span><span class="p">.</span><span class="nx">CoordinateSpan</span><span class="p">(</span><span class="mf">0.10</span><span class="p">,</span> <span class="mf">0.11</span><span class="p">)</span>
+                <span class="p">),</span>
+                <span class="nx">zoomRange</span><span class="o">:</span> <span class="k">new</span> <span class="nx">mapkit</span><span class="p">.</span><span class="nx">CameraZoomRange</span><span class="p">(</span><span class="mi">250</span><span class="p">,</span> <span class="mi">15000</span><span class="p">)</span>
+            <span class="p">},</span>
+        
+            <span class="nx">toronto</span><span class="o">:</span> <span class="p">{</span>
+                <span class="nx">region</span><span class="o">:</span> <span class="k">new</span> <span class="nx">mapkit</span><span class="p">.</span><span class="nx">CoordinateRegion</span><span class="p">(</span>
+                    <span class="k">new</span> <span class="nx">mapkit</span><span class="p">.</span><span class="nx">Coordinate</span><span class="p">(</span><span class="mf">43.6451</span><span class="p">,</span> <span class="o">-</span><span class="mf">79.37505</span><span class="p">),</span>
+                    <span class="k">new</span> <span class="nx">mapkit</span><span class="p">.</span><span class="nx">CoordinateSpan</span><span class="p">(</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.11</span><span class="p">)</span>
+                <span class="p">),</span>
+                <span class="nx">zoomRange</span><span class="o">:</span> <span class="k">new</span> <span class="nx">mapkit</span><span class="p">.</span><span class="nx">CameraZoomRange</span><span class="p">(</span><span class="mi">250</span><span class="p">,</span> <span class="mi">20000</span><span class="p">)</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        
+        <span class="c1">// Initialize mapkit.</span>
+        <span class="nx">mapkit</span><span class="p">.</span><span class="nx">init</span><span class="p">({</span>
+            <span class="nx">authorizationCallback</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">done</span><span class="p">)</span> <span class="p">{</span>
+                <span class="kd">var</span> <span class="nx">xhr</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">XMLHttpRequest</span><span class="p">();</span>
+                <span class="nx">xhr</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="s2">&quot;/services/jwt&quot;</span><span class="p">);</span>
+                <span class="nx">xhr</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;load&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                    <span class="nx">done</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">responseText</span><span class="p">);</span>
+                <span class="p">});</span>
+                <span class="nx">xhr</span><span class="p">.</span><span class="nx">send</span><span class="p">();</span>
+            <span class="p">}</span>
+        <span class="p">});</span>
+        
+        <span class="c1">// Create the map and set the current city to San Francisco when ready.</span>
+        <span class="kd">var</span> <span class="nx">map</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">mapkit</span><span class="p">.</span><span class="nx">Map</span><span class="p">(</span><span class="s2">&quot;map&quot;</span><span class="p">);</span>
+        <span class="nx">mapkit</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;configuration-change&quot;</span><span class="p">,</span> <span class="kd">function</span> <span class="nx">configurationChanged</span><span class="p">()</span> <span class="p">{</span>
+            <span class="nx">mapkit</span><span class="p">.</span><span class="nx">removeEventListener</span><span class="p">(</span><span class="s2">&quot;configuration-change&quot;</span><span class="p">,</span> <span class="nx">configurationChanged</span><span class="p">);</span>
+            <span class="nx">setCity</span><span class="p">(</span><span class="s2">&quot;sanfrancisco&quot;</span><span class="p">);</span>
+        <span class="p">});</span>
+        
+        <span class="c1">// Show the selected city on the map and highlight its name.</span>
+        <span class="kd">function</span> <span class="nx">setCity</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
+            <span class="c1">// Highlight the current city.</span>
+            <span class="kd">var</span> <span class="nx">div</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByClassName</span><span class="p">(</span><span class="nx">SELECTED_CITY_CLASS</span><span class="p">)[</span><span class="mi">0</span><span class="p">];</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">div</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">div</span><span class="p">.</span><span class="nx">classList</span><span class="p">.</span><span class="nx">remove</span><span class="p">(</span><span class="nx">SELECTED_CITY_CLASS</span><span class="p">);</span>
+            <span class="p">}</span>
+            <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="nx">name</span><span class="p">).</span><span class="nx">classList</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">SELECTED_CITY_CLASS</span><span class="p">);</span>
+        
+            <span class="c1">// Show it on the map, with camera boundaries and zoom range for this city.</span>
+            <span class="kd">var</span> <span class="nx">city</span> <span class="o">=</span> <span class="nx">CITIES</span><span class="p">[</span><span class="nx">name</span><span class="p">];</span>
+            <span class="nx">map</span><span class="p">.</span><span class="nx">cameraZoomRange</span> <span class="o">=</span> <span class="nx">city</span><span class="p">.</span><span class="nx">zoomRange</span><span class="p">;</span>
+            <span class="nx">map</span><span class="p">.</span><span class="nx">cameraBoundary</span> <span class="o">=</span> <span class="nx">city</span><span class="p">.</span><span class="nx">region</span><span class="p">;</span>
+            <span class="nx">map</span><span class="p">.</span><span class="nx">region</span> <span class="o">=</span> <span class="nx">city</span><span class="p">.</span><span class="nx">region</span><span class="p">;</span>
+        <span class="p">}</span>
+        
+        <span class="c1">// Listen to click events to change the city.</span>
+        <span class="kd">var</span> <span class="nx">cityRegionsElement</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;city-regions&quot;</span><span class="p">);</span>
+        <span class="nx">cityRegionsElement</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;click&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">setCity</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">id</span> <span class="o">||</span> <span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">.</span><span class="nx">id</span><span class="p">);</span>
+        <span class="p">});</span>
+        
+                <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+            <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span></code></pre>
+    </figure>
+
+</div>
+
+			<span class="modal-close icon icon-close" data-modal-close="modal-sample-map-6"></span>
+		</div>
+	</div>
+
+	<link rel="stylesheet" href="/assets/styles/footer.dist.css?17182448067">
+<footer id="footer" class="footer" role="contentinfo" aria-labelledby="footer-label">
+    <div class="footer-content">
+        <h2 class="footer-label" id="footer-label">Developer Footer</h2>
+	<developer-breadcrumbs>
+
+				<li class="footer-breadcrumbs-item"><a href="/maps/">Maps</a></li>
+				<li class="footer-breadcrumbs-item">Maps on the Web</li>
+			
+	</developer-breadcrumbs>
+	        <nav class="footer-directory" aria-label="Apple Developer Directory" role="navigation">
+	<!--googleoff: all-->
+	<div class="footer-directory-column">
+		<input class="footer-directory-column-section-state" type="checkbox" id="footer-directory-column-section-state-platform" />
+		<div class="footer-directory-column-section">
+			<label class="footer-directory-column-section-label" for="footer-directory-column-section-state-platform">
+				<h3 class="footer-directory-column-section-title">Platforms</h3>
+			</label>
+			<a href="#footer-directory-column-section-state-platform" class="footer-directory-column-section-anchor footer-directory-column-section-anchor-open"> <span class="footer-directory-column-section-anchor-label">Open Menu</span> </a>
+			<a href="#" class="footer-directory-column-section-anchor footer-directory-column-section-anchor-close"> <span class="footer-directory-column-section-anchor-label">Close Menu</span> </a>
+			<ul class="footer-directory-column-section-list">
+				<li class="footer-directory-column-section-item"><a class="footer-directory-column-section-link" href="/ios/">iOS</a></li>
+				<li class="footer-directory-column-section-item"><a class="footer-directory-column-section-link" href="/ipados/">iPadOS</a></li>
+				<li class="footer-directory-column-section-item"><a class="footer-directory-column-section-link" href="/macos/">macOS</a></li>
+				<li class="footer-directory-column-section-item"><a class="footer-directory-column-section-link" href="/tvos/">tvOS</a></li>
+				<li class="footer-directory-column-section-item"><a class="footer-directory-column-section-link" href="/visionos/">visionOS</a></li>
+				<li class="footer-directory-column-section-item"><a class="footer-directory-column-section-link" href="/watchos/">watchOS</a></li>
+			</ul>
+		</div>
+
+		<input class="footer-directory-column-section-state" type="checkbox" id="footer-directory-column-section-state-tools" />
+		<div class="footer-directory-column-section">
+			<label class="footer-directory-column-section-label" for="footer-directory-column-section-state-tools">
+				<h3 class="footer-directory-column-section-title">Tools</h3>
+			</label>
+			<a href="#footer-directory-column-section-state-tools" class="footer-directory-column-section-anchor footer-directory-column-section-anchor-open"> <span class="footer-directory-column-section-anchor-label">Open Menu</span> </a>
+			<a href="#" class="footer-directory-column-section-anchor footer-directory-column-section-anchor-close"> <span class="footer-directory-column-section-anchor-label">Close Menu</span> </a>
+			<ul class="footer-directory-column-section-list">
+				<li class="footer-directory-column-section-item"><a class="footer-directory-column-section-link" href="/swift/">Swift</a></li>
+				<li class="footer-directory-column-section-item"><a class="footer-directory-column-section-link" href="/swiftui/">SwiftUI</a></li>
+				<li class="footer-directory-column-section-item"><a class="footer-directory-column-section-link" href="/swift-playgrounds/">Swift Playgrounds</a></li>
+				<li class="footer-directory-column-section-item"><a class="footer-directory-column-section-link" href="/testflight/">TestFlight</a></li>
+				<li class="footer-directory-column-section-item"><a class="footer-directory-column-section-link" href="/xcode/">Xcode</a></li>
+				<li class="footer-directory-column-section-item"><a class="footer-directory-column-section-link" href="/xcode-cloud/">Xcode Cloud</a></li>
+				<li class="footer-directory-column-section-item"><a class="footer-directory-column-section-link" href="/sf-symbols/">SF Symbols</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="footer-directory-column">
+		<input class="footer-directory-column-section-state" type="checkbox" id="footer-directory-column-section-state-topics" />
+		<div class="footer-directory-column-section">
+			<label class="footer-directory-column-section-label" for="footer-directory-column-section-state-topics">
+				<h3 class="footer-directory-column-section-title">Topics &amp; Technologies</h3>
+			</label>
+			<a href="#footer-directory-column-section-state-topics" class="footer-directory-column-section-anchor footer-directory-column-section-anchor-open"> <span class="footer-directory-column-section-anchor-label">Open Menu</span> </a>
+			<a href="#" class="footer-directory-column-section-anchor footer-directory-column-section-anchor-close"> <span class="footer-directory-column-section-anchor-label">Close Menu</span> </a>
+			<ul class="footer-directory-column-section-list">
+				<li class="footer-directory-column-section-item"><a class="footer-directory-column-section-link" href="/accessibility/">Accessibility</a></li>
+				<li class="footer-directory-column-section-item"><a class="footer-directory-column-section-link" href="/accessories/">Accessories</a></li>
+				<li class="footer-directory-column-section-item"><a class="footer-directory-column-section-link" href="/app-extensions/">App Extensions</a></li>
+				<li class="footer-directory-column-section-item"><a class="footer-directory-column-section-link" href="/app-store/">App Store</a></li>
+				<li class="footer-directory-column-section-item"><a class="footer-directory-column-section-link" href="/audio/">Audio &amp; Video</a></li>
+				<li class="footer-directory-column-section-item"><a class="footer-directory-column-section-link" href="/augmented-reality/">Augmented Reality</a></li>
+				<li class="footer-directory-column-section-item"><a class="footer-directory-column-section-link" href="/design/">Design</a></li>
+				<li class="footer-directory-column-section-item"><a class="footer-directory-column-section-link" href="/distribute/">Distribution</a></li>
+				<li class="footer-directory-column-section-item"><a class="footer-directory-column-section-link" href="/education/">Education</a></li>
+				<li class="footer-directory-column-section-item"><a class="footer-directory-column-section-link" href="/fonts/">Fonts</a></li>
+				<li class="footer-directory-column-section-item"><a class="footer-directory-column-section-link" href="/games/">Games</a></li>
+				<li class="footer-directory-column-section-item"><a class="footer-directory-column-section-link" href="/health-fitness/">Health &amp; Fitness</a></li>
+				<li class="footer-directory-column-section-item"><a class="footer-directory-column-section-link" href="/in-app-purchase/">In-App Purchase</a></li>
+				<li class="footer-directory-column-section-item"><a class="footer-directory-column-section-link" href="/localization/">Localization</a></li>
+				<li class="footer-directory-column-section-item"><a class="footer-directory-column-section-link" href="/maps/">Maps &amp; Location</a></li>
+				<li class="footer-directory-column-section-item"><a class="footer-directory-column-section-link" href="/machine-learning/">Machine Learning</a></li>
+				<li class="footer-directory-column-section-item"><a class="footer-directory-column-section-link" href="https://opensource.apple.com">Open Source</a></li>
+				<li class="footer-directory-column-section-item"><a class="footer-directory-column-section-link" href="/security/">Security</a></li>
+				<li class="footer-directory-column-section-item"><a class="footer-directory-column-section-link" href="/safari/">Safari &amp; Web</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="footer-directory-column">
+		<input class="footer-directory-column-section-state" type="checkbox" id="footer-directory-column-section-state-resources" />
+		<div class="footer-directory-column-section">
+			<label class="footer-directory-column-section-label" for="footer-directory-column-section-state-resources">
+				<h3 class="footer-directory-column-section-title">Resources</h3>
+			</label>
+			<a href="#footer-directory-column-section-state-resources" class="footer-directory-column-section-anchor footer-directory-column-section-anchor-open"> <span class="footer-directory-column-section-anchor-label">Open Menu</span> </a>
+			<a href="#" class="footer-directory-column-section-anchor footer-directory-column-section-anchor-close"> <span class="footer-directory-column-section-anchor-label">Close Menu</span> </a>
+			<ul class="footer-directory-column-section-list">
+				<li class="footer-directory-column-section-item"><a class="footer-directory-column-section-link" href="/documentation/">Documentation</a></li>
+				<li class="footer-directory-column-section-item"><a class="footer-directory-column-section-link" href="/learn/">Tutorials</a></li>
+				<li class="footer-directory-column-section-item"><a class="footer-directory-column-section-link" href="/download/">Downloads</a></li>
+				<li class="footer-directory-column-section-item"><a class="footer-directory-column-section-link" href="/forums/">Forums</a></li>
+				<li class="footer-directory-column-section-item"><a class="footer-directory-column-section-link" href="/videos/">Videos</a></li>
+			</ul>
+		</div>
+
+		<input class="footer-directory-column-section-state" type="checkbox" id="footer-directory-column-section-state-support" />
+		<div class="footer-directory-column-section">
+			<label class="footer-directory-column-section-label" for="footer-directory-column-section-state-support">
+				<h3 class="footer-directory-column-section-title">Support</h3>
+			</label>
+			<a href="#footer-directory-column-section-state-support" class="footer-directory-column-section-anchor footer-directory-column-section-anchor-open"> <span class="footer-directory-column-section-anchor-label">Open Menu</span> </a>
+			<a href="#" class="footer-directory-column-section-anchor footer-directory-column-section-anchor-close"> <span class="footer-directory-column-section-anchor-label">Close Menu</span> </a>
+			<ul class="footer-directory-column-section-list">
+				<li class="footer-directory-column-section-item"><a class="footer-directory-column-section-link" href="/support/articles/">Support Articles</a></li>
+				<li class="footer-directory-column-section-item"><a class="footer-directory-column-section-link" href="/contact/">Contact Us</a></li>
+				<li class="footer-directory-column-section-item"><a class="footer-directory-column-section-link" href="/bug-reporting/">Bug Reporting</a></li>
+				<li class="footer-directory-column-section-item"><a class="footer-directory-column-section-link" href="/system-status/">System Status</a></li>
+			</ul>
+		</div>
+
+		<input class="footer-directory-column-section-state" type="checkbox" id="footer-directory-column-section-state-account" />
+		<div class="footer-directory-column-section">
+			<label class="footer-directory-column-section-label" for="footer-directory-column-section-state-account">
+				<h3 class="footer-directory-column-section-title">Account</h3>
+			</label>
+			<a href="#footer-directory-column-section-state-account" class="footer-directory-column-section-anchor footer-directory-column-section-anchor-open"> <span class="footer-directory-column-section-anchor-label">Open Menu</span> </a>
+			<a href="#" class="footer-directory-column-section-anchor footer-directory-column-section-anchor-close"> <span class="footer-directory-column-section-anchor-label">Close Menu</span> </a>
+			<ul class="footer-directory-column-section-list">
+				<li class="footer-directory-column-section-item"><a class="footer-directory-column-section-link" href="/account/">Apple Developer</a></li>
+				<li class="footer-directory-column-section-item"><a class="footer-directory-column-section-link" href="https://appstoreconnect.apple.com/">App Store Connect</a></li>
+				<li class="footer-directory-column-section-item"><a class="footer-directory-column-section-link" href="/account/ios/certificate/">Certificates, IDs, &amp; Profiles</a></li>
+				<li class="footer-directory-column-section-item"><a class="footer-directory-column-section-link" href="https://feedbackassistant.apple.com/">Feedback Assistant</a></li>
+			</ul>
+		</div>
+	</div>
+	
+	<div class="footer-directory-column">
+		<input class="footer-directory-column-section-state" type="checkbox" id="footer-directory-column-section-state-programs" />
+		<div class="footer-directory-column-section">
+			<label class="footer-directory-column-section-label" for="footer-directory-column-section-state-programs">
+				<h3 class="footer-directory-column-section-title">Programs</h3>
+			</label>
+			<a href="#footer-directory-column-section-state-programs" class="footer-directory-column-section-anchor footer-directory-column-section-anchor-open"> <span class="footer-directory-column-section-anchor-label">Open Menu</span> </a>
+			<a href="#" class="footer-directory-column-section-anchor footer-directory-column-section-anchor-close"> <span class="footer-directory-column-section-anchor-label">Close Menu</span> </a>
+			<ul class="footer-directory-column-section-list">
+				<li class="footer-directory-column-section-item"><a class="footer-directory-column-section-link" href="/programs/">Apple Developer Program</a></li>
+				<li class="footer-directory-column-section-item"><a class="footer-directory-column-section-link" href="/programs/enterprise/">Apple Developer Enterprise Program</a></li>
+				<li class="footer-directory-column-section-item"><a class="footer-directory-column-section-link" href="/app-store/small-business-program/">App Store Small Business Program</a></li>
+				<li class="footer-directory-column-section-item"><a class="footer-directory-column-section-link" href="https://mfi.apple.com/">MFi Program</a></li>
+				<li class="footer-directory-column-section-item"><a class="footer-directory-column-section-link" href="/programs/news-partner/">News Partner Program</a></li>
+				<li class="footer-directory-column-section-item"><a class="footer-directory-column-section-link" href="/programs/video-partner/">Video Partner Program</a></li>
+				<li class="footer-directory-column-section-item"><a class="footer-directory-column-section-link" href="/security-bounty/">Security Bounty Program</a></li>
+				<li class="footer-directory-column-section-item"><a class="footer-directory-column-section-link" href="/programs/security-research-device/">Security Research Device Program</a></li>
+			</ul>
+		</div>
+
+		<input class="footer-directory-column-section-state" type="checkbox" id="footer-directory-column-section-state-events" />
+		<div class="footer-directory-column-section">
+			<label class="footer-directory-column-section-label" for="footer-directory-column-section-state-events">
+				<h3 class="footer-directory-column-section-title">Events</h3>
+			</label>
+			<a href="#footer-directory-column-section-state-events" class="footer-directory-column-section-anchor footer-directory-column-section-anchor-open"> <span class="footer-directory-column-section-anchor-label">Open Menu</span> </a>
+			<a href="#" class="footer-directory-column-section-anchor footer-directory-column-section-anchor-close"> <span class="footer-directory-column-section-anchor-label">Close Menu</span> </a>
+			<ul class="footer-directory-column-section-list">
+				<li class="footer-directory-column-section-item"><a class="footer-directory-column-section-link" href="/events/">Meet with Apple</a></li>
+				<li class="footer-directory-column-section-item"><a class="footer-directory-column-section-link" href="/events/developer-centers/">Apple Developer Centers</a></li>
+				<li class="footer-directory-column-section-item"><a class="footer-directory-column-section-link" href="/app-store/app-store-awards/">App Store Awards</a></li>
+				<li class="footer-directory-column-section-item"><a class="footer-directory-column-section-link" href="/design/awards/">Apple Design Awards</a></li>
+				<li class="footer-directory-column-section-item"><a class="footer-directory-column-section-link" href="/academies/">Apple Developer Academies</a></li>
+				<li class="footer-directory-column-section-item"><a class="footer-directory-column-section-link" href="/entrepreneur-camp/">Entrepreneur Camp</a></li>
+				<li class="footer-directory-column-section-item"><a class="footer-directory-column-section-link" href="/wwdc/">WWDC</a></li>
+			</ul>
+		</div>
+	</div>
+	<!--googleon: all-->
+</nav>
+        <section class="footer-mini" vocab="http://schema.org/" typeof="Organization">
+	<div class="footer-mini-news">
+		<div class="copy">
+			Get the <a href="https://apps.apple.com/us/app/apple-developer/id640199958">Apple Developer app</a>.
+		</div>
+		<div class="content">
+			<div class="color-scheme-toggle"
+				role="radiogroup"
+				tabindex="0"
+				aria-label="Select a color scheme preference">
+
+				<label data-color-scheme-option="light">
+
+					<input type="radio" value="light" autocomplete="off"
+						onchange="window.setPreferredColorScheme(event.target.value)" />
+
+					<div class="text">Light</div>
+
+				</label>
+
+				<label data-color-scheme-option="dark">
+
+					<input type="radio" value="dark" autocomplete="off"
+						onchange="window.setPreferredColorScheme(event.target.value)" />
+
+					<div class="text">Dark</div>
+
+				</label>
+
+				<label data-color-scheme-option="auto">
+
+					<input type="radio" value="auto" autocomplete="off"
+						onchange="window.setPreferredColorScheme(event.target.value)" />
+
+					<div class="text">Auto</div>
+
+				</label>
+
+			</div>
+			<script async src="/assets/scripts/color-scheme-toggle.js"></script>
+		</div>
+	</div>
+	<link rel="stylesheet" href="/assets/styles/language-dropdown.css?17182448067">
+	<div class="language-dropdown dropdown-container legacy-form hidden">
+		<select class="dropdown" aria-label="Language Dropdown"></select>
+		<span class="dropdown-icon icon icon-chevrondown" aria-hidden="true"></span>
+	</div>
+	<script src="/assets/scripts/language-dropdown.js?17182448067"></script>
+	<div class="footer-mini-legal">
+		<div class="footer-mini-legal-copyright">Copyright ©  2024 <a href="https://www.apple.com">Apple Inc.</a> All rights reserved.</div>
+		<div class="footer-mini-legal-links">
+			<a class="footer-mini-legal-link" href="https://www.apple.com/legal/internet-services/terms/site.html" class="first">Terms of Use</a>
+			<a class="footer-mini-legal-link" href="https://www.apple.com/legal/privacy/">Privacy Policy</a>
+			<a class="footer-mini-legal-link" href="/support/terms/">Agreements and Guidelines</a>
+		</div>
+	</div>
+</section>
+    </div>
+</footer>
+
+	<span id="mapkit-token" data-token="eyJhbGciOiJFUzI1NiIsImtpZCI6Ik5UTjY3NFVRM1AiLCJ0eXAiOiJKV1QifQ.eyJhbGciOiJFUzI1NiIsImlzcyI6IjJaN0Y0UDQ5MjUiLCJpYXQiOjE3MjkzMTgzOTksImV4cCI6MTcyOTMyMDE5OSwib3JpZ2luIjoiZGV2ZWxvcGVyLmFwcGxlLmNvbSJ9.MEQCICCVqHlarF9JcNn/cfoPTFuqjZv07U1OTSVCC2w7iH4KAiBmxvmUSjd6U3HOPWNHcEI51t1mFa3gmjC8dXK3M7lfqA=="></span>
+	<script src="https://cdn.apple-mapkit.com/mk/5.x.x/mapkit.js"></script>
+	<script src="/maps/web/scripts/web.js"></script>
+
+</body>
+</html>
